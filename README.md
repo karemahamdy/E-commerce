@@ -1,2 +1,2 @@
 # E-commerce
-a fullstack project who is made by salla, vue, vuex, chakra ui and tailwind
+a fullstack project who is made by salla, vue, vuex, prime ui and tailwind
