@@ -1,41 +1,16 @@
 <template>
-  <div class="card flex justify-center">
-    <Toast />
-    <form @submit.prevent="onFormSubmit" class="flex flex-col gap-4 w-full sm:w-56">
-      <div class="flex flex-col gap-1">
-        <InputText v-model="username" placeholder="Username" />
-        <Message v-if="error" severity="error">{{ error }}</Message>
-      </div>
-      <Button type="submit" label="Submit" />
-    </form>
+  <div class="flex justify-between flex-wrap gap-4">
+    <Button label="Primary" />
+    <Button label="Secondary" severity="secondary" />
+    <Button label="Success" severity="success" />
+    <Button label="Info" severity="info" />
+    <Button label="Warn" severity="warn" />
+    <Button label="Help" severity="help" />
+    <Button label="Danger" severity="danger" />
+    <Button label="Contrast" severity="contrast" />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useToast } from 'primevue/usetoast'
-import Toast from 'primevue/toast'
-import InputText from 'primevue/inputtext'
-import Message from 'primevue/message'
-import Button from 'primevue/button'
-
-const toast = useToast()
-const username = ref('')
-const error = ref('')
-
-const onFormSubmit = () => {
-  if (!username.value) {
-    error.value = 'Username is required'
-    return
-  }
-
-  toast.add({
-    severity: 'success',
-    summary: 'Form Submitted',
-    detail: `Username: ${username.value}`,
-    life: 3000
-  })
-
-  error.value = ''
-}
+import './tailwind.css'
 </script>
