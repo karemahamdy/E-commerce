@@ -1,27 +1,22 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
 
-<template>
-  <div>
-    <h6 class="bg-red-500">karema</h6>
-    <a href="https://vite.dev" target="_blank"/>
+
+    <template>
+      <div class="flex justify-between items-between gap-4 mx-8" style="display: flex; justify-content: space-between; align-items:center; gap: 20px;">
+
+        <Button label="Primary" />
+        <Button label="Secondary" severity="secondary" />
+        <Button label="Success" severity="success" />
+        <Button label="Info" severity="info" />
+        <Button label="Warn" severity="warn" />
+        <Button label="Help" severity="help" />
+        <Button label="Danger" severity="danger" />
+        <Button label="Contrast" severity="contrast" />
+      </div>
+    </template>
+
   
-  </div>
 
-</template>
+<script setup>
+import Button from 'primevue/button'
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+</script>

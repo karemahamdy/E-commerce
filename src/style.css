@@ -1,4 +1,20 @@
-@import "tailwindcss";
+/* @import "tailwindcss"; */
+/*  */
+/* @layer tailwind-base, primevue, tailwind-utilities; */
+/* 
+@layer tailwind-base {
+  @tailwind base;
+}
+
+
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+} */
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
 * {
   margin: 0;
   padding: 0;
@@ -11,16 +27,8 @@
   font-synthesis: none;
 }
 body {
-  margin: 0;
+  margin: 100px;
   display: flex;
   min-width: 320px;
   min-height: 100vh;
-}
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-a {
-  font-weight: 500;
-  text-decoration: none;
 }
