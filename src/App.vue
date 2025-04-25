@@ -1,11 +1,17 @@
 <template>
   <div class="wrapper">
-
-    <p class="text-danger">This is a danger alert.</p>
+<Navbar/>
+<p class="bg-red-500">karema</p>
   </div>
 </template>
 
-<script setup>
+<script>
+import Navbar from './components/Navbar.vue'
 import './style.css'
 import './tailwind.css'
+export default  {
+  components: {
+Navbar
+  }
+}
 </script>
