@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
 <Navbar/>
-<p class="bg-red-500">karema</p>
+
   </div>
 </template>
 
