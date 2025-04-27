@@ -8,16 +8,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--primary-color)',
-        secondary: 'var(--secondary-color)',
-        accent: 'var(--accent-color)',
-        text: 'var(--text-color)',
-        muted: 'var(--muted-text-color)',
-        success: 'var(--success-color)',
-        danger: 'var(--danger-color)',
-        warning: 'var(--warning-color)',
+        blue: {
+          500: "#0989FB",
+        },
       },
     },
-  },
-  plugins: [],
+    plugins: [],
+  }
 }
