@@ -42,7 +42,7 @@ export default {
     TopHeader,
     MainNavbar,
     CategoryNavbar,
-    ProductGrid
+    // ProductGrid
   },
   data() {
     return {

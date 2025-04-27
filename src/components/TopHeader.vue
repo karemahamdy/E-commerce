@@ -1,9 +1,9 @@
 <!-- TopHeader.vue -->
 <template>
-  <header class="bg-white py-2 border-b border-gray-100 text-sm">
+  <header class="bg-gray-100 py-2 border-b border-gray-100 text-sm">
     <div class="container mx-auto px-4 flex justify-between items-center">
       <div>
-        <span class="text-gray-600">Welcome to worldwide Megamart!</span>
+        <span class="text-gray-400">Welcome to worldwide Megamart!</span>
       </div>
       <div class="flex items-center space-x-6">
         <button class="flex items-center text-blue-500 hover:text-blue-600">
@@ -14,7 +14,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span>Deliver to 423651</span>
+          <span class="text-gray-400">Deliver to <span class="text-gray-500 font-bold">423651</span></span>
         </button>
         <button class="flex items-center text-blue-500 hover:text-blue-600">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
@@ -22,7 +22,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
           </svg>
-          <span>Track your order</span>
+          <span class="text-gray-400">Track your order</span>
         </button>
         <button class="flex items-center text-blue-500 hover:text-blue-600">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
@@ -30,7 +30,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
           </svg>
-          <span>All Offers</span>
+          <span class="text-gray-400">All Offers</span>
         </button>
       </div>
     </div>
