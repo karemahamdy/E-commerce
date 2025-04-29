@@ -2,7 +2,7 @@
 <template>
   <div class="bg-white border-b border-gray-200 pt-4">
     <div class="container mx-auto px-4 pb-4">
-      <div class="flex gap-4 overflow-x-auto hide-scrollbar">
+      <div class="flex gap-4 overflow-x-auto hide-scrollbar justify-center">
         <category-button v-for="(category, index) in categories" :key="index" :label="category.label"
           :has-dropdown="category.hasDropdown" :is-active="currentCategory === index"
           @click="currentCategory = index" />
@@ -30,7 +30,7 @@ export default {
         { label: 'Electronics', hasDropdown: true },
         { label: 'Beauty', hasDropdown: true },
         { label: 'Home Improvement', hasDropdown: true },
-        { label: 'Sports, Toys & Luggage', hasDropdown: true }
+        // { label: 'Sports, Toys & Luggage', hasDropdown: true }
       ]
     }
   }
