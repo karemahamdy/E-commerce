@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+  <div
+    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
     <!-- Product Image -->
     <div class="h-48 bg-gray-200 relative">
       <img :src="product.image" :alt="product.name" class="w-full h-full object-cover">
@@ -37,11 +38,11 @@
           }})</span>
       </div>
 
-      <!-- Price and Add to Cart -->
+      <!-- Price and View All -->
       <div class="flex justify-between items-center">
         <div class="font-bold text-lg">${{ product.price.toFixed(2) }}</div>
-        <button class="bg-blue-500 text-white rounded-md px-3 py-1 text-sm hover:bg-blue-600 transition-colors">
-          Add to Cart
+        <button class="bg-[#c0a27e] text-white rounded-md px-3 py-1 text-sm hover:bg-[#a98a6b] transition-colors">
+          View All
         </button>
       </div>
     </div>
