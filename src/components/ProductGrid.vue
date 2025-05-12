@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold">Featured Products</h2>
+    <div class="flex justify-end items-center mb-4">
       <router-link to="/products">
         <button class="bg-[#c0a27e] text-white rounded-md px-4 py-2 text-sm hover:bg-[#a98a6b] transition-colors">
           View All
@@ -9,7 +8,7 @@
       </router-link>
     </div>
 
-    <Carousel :value="products" :numVisible="3" :numScroll="1" circular>
+    <Carousel :value="products" :numVisible="3" :numScroll="1" circular :showIndicators="false">
       <template #item="slotProps">
         <ProductCard :product="slotProps.data" />
       </template>
