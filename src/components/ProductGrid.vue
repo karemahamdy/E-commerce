@@ -2,7 +2,7 @@
   <div>
     <div class="flex justify-end items-center mb-4">
       <router-link to="/products">
-        <button class="bg-[#c0a27e] text-white rounded-md px-4 py-2 text-sm hover:bg-[#a98a6b] transition-colors">
+        <button class="text-[#c0a27e] rounded-md px-4 py-2 text-sm transition-colors cursor-pointer">
           View All
         </button>
       </router-link>

@@ -41,7 +41,7 @@
       <!-- Price and View All -->
       <div class="flex justify-between items-center">
         <div class="font-bold text-lg">${{ product.price.toFixed(2) }}</div>
-        <button class="bg-[#c0a27e] text-white rounded-md px-3 py-1 text-sm hover:bg-[#a98a6b] transition-colors">
+        <button class="bg-[#c0a27e] text-white rounded-md px-3 py-1 text-sm hover:bg-[#a98a6b] transition-colors outline-">
           View All
         </button>
       </div>
