@@ -4,16 +4,12 @@
       <div class="grid grid-cols-3 md:grid-cols-4 gap-8">
         <!-- Brand section -->
         <div class="col-span-1">
-          <h2 class="text-xl font-bold mb-4">Male fashion<span class="text-red-500">.</span></h2>
+          <h2 class="text-xl font-bold mb-4">Mega Mart<span class="text-[#6b4619]">.</span></h2>
           <p class="text-gray-400 text-sm mb-6">
             The customer is at the heart of our unique business model, which includes design.
           </p>
           <div class="flex space-x-2">
-            <!-- <img src="/payment-icons/ideal.png" alt="iDeal" class="h-8" />
-            <img src="/payment-icons/amex.png" alt="American Express" class="h-8" />
-            <img src="/payment-icons/paypal.png" alt="PayPal" class="h-8" />
-            <img src="/payment-icons/mastercard.png" alt="Mastercard" class="h-8" />
-            <img src="/payment-icons/visa.png" alt="Visa" class="h-8" /> -->
+            <img src="../../../public/assets/images/payment.png" alt="Visa" class="h-8" /> 
           </div>
         </div>
 
@@ -47,7 +43,7 @@
           </p>
           <div class="flex mt-2">
             <InputText v-model="email" placeholder="Your email"
-              class="p-inputtext-sm w-full bg-black border-b border-gray-700 focus:border-white focus:outline-none text-gray-300" />
+              class="p-inputtext-sm w-full bg-black border-b border-gray-700 focus:border-red-500 focus:outline-none text-gray-300" />
             <Button icon="pi pi-envelope" class="p-button-text text-white hover:text-gray-300"
               @click="subscribeNewsletter" />
           </div>
