@@ -7,8 +7,11 @@
     <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 pt-8">
       <TextBanner title="Welcome to Our Store" description="Discover the best products at unbeatable prices!" />
       <ProductGrid class="container mx-auto px-4 py-6" />
+      <Category class="container mx-auto px-4 py-6" />
+      <SaleBanner class="container mx-auto px-4 py-6" />
+      <Brands class="container mx-auto px-4 py-6" />
     </main>
-    <Footer/>
+    <Footer />
 
   </div>
 </template>
@@ -23,6 +26,9 @@ import './tailwind.css'
 import HeroSection from './components/UI/HeroSection.vue';
 import TextBanner from './components/TextBanner.vue';
 import Footer from './components/UI/Footer.vue';
+import Category from './components/UI/Category.vue';
+import SaleBanner from './components/UI/SaleBanner.vue';
+import Brands from './components/UI/Brands.vue';
 
 export default {
   name: 'App',
@@ -33,6 +39,9 @@ export default {
     ProductGrid,
     HeroSection,
     TextBanner,
+    Category,
+    SaleBanner,
+    Brands,
     Footer
   },
   data() {
