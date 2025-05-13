@@ -8,6 +8,7 @@
       <TextBanner title="Welcome to Our Store" description="Discover the best products at unbeatable prices!" />
       <ProductGrid class="container mx-auto px-4 py-6" />
     </main>
+    <Footer/>
 
   </div>
 </template>
@@ -21,6 +22,7 @@ import './style.css'
 import './tailwind.css'
 import HeroSection from './components/UI/HeroSection.vue';
 import TextBanner from './components/TextBanner.vue';
+import Footer from './components/UI/Footer.vue';
 
 export default {
   name: 'App',
@@ -30,7 +32,8 @@ export default {
     CategoryNavbar,
     ProductGrid,
     HeroSection,
-    TextBanner
+    TextBanner,
+    Footer
   },
   data() {
     return {
