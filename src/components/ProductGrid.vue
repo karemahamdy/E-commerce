@@ -8,7 +8,7 @@
       </router-link>
     </div>
 
-    <Carousel :value="products" :numVisible="3" :numScroll="1" circular :showIndicators="false">
+    <Carousel :value="products" :numVisible="3" :numScroll="1" circular :showIndicators="false" style="display:flex; gap:20px !important;">
       <template #item="slotProps">
         <ProductCard :product="slotProps.data" />
       </template>
@@ -40,3 +40,10 @@ export default {
   }
 }
 </script>
+<style>
+.p-carousel-items-container
+{
+  gap: 20px !important;
+  margin-bottom: 10px;
+}
+</style>

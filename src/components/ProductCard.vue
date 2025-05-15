@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer gap-2.5">
     <!-- Product Image -->
     <div class="h-48 bg-gray-200 relative">
       <img :src="product.image" :alt="product.name" class="w-full h-full object-cover">
