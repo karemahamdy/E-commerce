@@ -8,21 +8,21 @@
       <TextBanner title="Welcome to Our Store" description="Discover the best products at unbeatable prices!" />
       <ProductGrid class="container mx-auto px-4 py-6" />
       <Category class="container mx-auto px-4 py-6" />
-      <SaleBanner class="container mx-auto px-4 py-6" />
-      <Brands class="container mx-auto px-4 py-6" />
     </main>
+    <SaleBanner />
+    <Brands class="container mx-auto px-4 py-6" />
     <Footer />
 
   </div>
 </template>
 
 <script>
+import './style.css'
+import './tailwind.css'
 import TopHeader from './components/TopHeader.vue';
 import MainNavbar from './components/MainNavbar.vue';
 import CategoryNavbar from './components/CategoryNavbar.vue';
 import ProductGrid from './components/ProductGrid.vue';
-import './style.css'
-import './tailwind.css'
 import HeroSection from './components/UI/HeroSection.vue';
 import TextBanner from './components/TextBanner.vue';
 import Footer from './components/UI/Footer.vue';

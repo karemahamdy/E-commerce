@@ -6,8 +6,8 @@
 
 <script setup>
 const brands = [
-  { name: 'Brand A', logo: 'https://via.placeholder.com/80x40' },
-  { name: 'Brand B', logo: 'https://via.placeholder.com/80x40' },
-  { name: 'Brand C', logo: 'https://via.placeholder.com/80x40' },
+  { name: 'Brand A', logo: '../../../public/assets/images/product-sale.png' },
+  { name: 'Brand B', logo: '../../../public/assets/images/product-sale.png' },
+  { name: 'Brand C', logo: '../../../public/assets/images/product-sale.png' },
 ];
 </script>

@@ -23,14 +23,15 @@ export default {
     return {
       currentCategory: 0,
       categories: [
-        { label: 'Groceries', hasDropdown: true },
-        { label: 'Premium Fruits', hasDropdown: true },
-        { label: 'Home & Kitchen', hasDropdown: true },
-        { label: 'Fashion', hasDropdown: true },
-        { label: 'Electronics', hasDropdown: true },
-        { label: 'Beauty', hasDropdown: true },
-        { label: 'Home Improvement', hasDropdown: true },
-        // { label: 'Sports, Toys & Luggage', hasDropdown: true }
+        { label: 'Home' },
+        { label: 'About' },
+        { label: 'Contact us' },
+        { label: 'Cart' },
+        { label: 'products' },
+        { label: 'summary' },
+        { label: 'checkout' },
+        { label: 'login' },
+      
       ]
     }
   }
@@ -47,6 +48,6 @@ export default {
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
-  /* Chrome, Safari, Opera */
+
 }
 </style>
