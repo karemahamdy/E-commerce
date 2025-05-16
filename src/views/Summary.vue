@@ -24,13 +24,13 @@
         <div class="w-24 text-right font-semibold">${{ (item.price * item.quantity).toFixed(2) }}</div>
 
         <!-- Remove -->
-        <Button icon="pi pi-times" severity="secondary" text @click="removeItem(index)" />
+        <Button icon="pi pi-times" severity="" text @click="removeItem(index)" />
       </div>
 
       <!-- Cart Controls -->
       <div class="flex justify-between mt-6">
         <Button label="Continue Shopping" outlined />
-        <Button label="Update Cart" icon="pi pi-refresh" />
+        <!-- <Button label="Update Cart" icon="pi pi-refresh" /> -->
       </div>
     </div>
 
