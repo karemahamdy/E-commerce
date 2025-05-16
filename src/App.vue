@@ -1,7 +1,8 @@
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- <Home/> -->
-    <Product/>
+    <!-- <Product/> -->
+     <Summary/>
     </div>
 </template>
 
@@ -10,13 +11,15 @@ import './style.css'
 import './tailwind.css'
 import Home from './views/Home.vue';
 import Product from './views/Product.vue';
+import Summary from './views/Summary.vue';
 
 
 export default {
   name: 'App',
   components: {
     Home, 
-    Product   
+    Product,
+    Summary  
   },
   data() {
     return {
