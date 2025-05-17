@@ -4,7 +4,8 @@
     <!-- <Product/> -->
     <!-- <Summary/> -->
     <!-- <Cart/> -->
-    <Login/>
+    <!-- <Login/> -->
+     <Products/>
      </div>
 </template>
 
@@ -15,6 +16,7 @@ import Cart from './views/Cart.vue';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Product from './views/Product.vue';
+import Products from './views/Products.vue';
 import Summary from './views/Summary.vue';
 
 
@@ -25,7 +27,8 @@ export default {
     Product,
     Summary,
     Cart,
-    Login 
+    Login, 
+    Products
   },
   data() {
     return {
