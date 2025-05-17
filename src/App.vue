@@ -1,16 +1,33 @@
 <template>
-  <div class="flex justify-between flex-wrap gap-4">
-    <Button label="Primary" />
-    <Button label="Secondary" severity="secondary" />
-    <Button label="Success" severity="success" />
-    <Button label="Info" severity="info" />
-    <Button label="Warn" severity="warn" />
-    <Button label="Help" severity="help" />
-    <Button label="Danger" severity="danger" />
-    <Button label="Contrast" severity="contrast" />
-  </div>
+  <div class="min-h-screen bg-gray-50">
+    <!-- <Home/> -->
+    <!-- <Product/> -->
+     <!-- <Summary/> -->
+      <Cart/>
+    </div>
 </template>
 
-<script setup>
+<script>
+import './style.css'
 import './tailwind.css'
+import Cart from './views/Cart.vue';
+import Home from './views/Home.vue';
+import Product from './views/Product.vue';
+import Summary from './views/Summary.vue';
+
+
+export default {
+  name: 'App',
+  components: {
+    Home, 
+    Product,
+    Summary,
+    Cart  
+  },
+  data() {
+    return {
+      
+    }
+  }
+}
 </script>
