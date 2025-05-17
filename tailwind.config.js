@@ -6,7 +6,13 @@ export default {
     "./node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
-  },
-  plugins: [],
+    extend: {
+      colors: {
+        blue: {
+          500: "#0989FB",
+        },
+      },
+    },
+    plugins: [],
+  }
 }
