@@ -8,7 +8,6 @@ import Login from '../views/Login.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  // { path: '/home', name: 'Home', component: Home },
   { path: '/product', name: 'Product', component: Products },
   { path: '/cart', name: 'Cart', component: Cart },
   { path: '/summary', name: 'Summary', component: Summary },
