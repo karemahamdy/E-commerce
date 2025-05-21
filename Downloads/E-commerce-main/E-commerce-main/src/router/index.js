@@ -6,7 +6,7 @@ import Summary from '../views/Summary.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/home', name: 'Home', component: Home },
+  // { path: '/home', name: 'Home', component: Home },
   { path: '/product', name: 'Product', component: Product },
   { path: '/cart', name: 'Cart', component: Cart },
   { path: '/summary', name: 'Summary', component: Summary },

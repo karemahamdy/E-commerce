@@ -5,7 +5,7 @@
       <div class="flex gap-4 overflow-x-auto hide-scrollbar justify-center">
         <category-button v-for="(category, index) in categories" :key="index" :label="category.label"
           :has-dropdown="category.hasDropdown" :is-active="currentCategory === index"
-          @click="currentCategory = index" />
+         @click="navigateToCategory(index)"/>
       </div>
     </div>
   </div>
@@ -23,19 +23,25 @@ export default {
     return {
       currentCategory: 0,
       categories: [
-        { label: 'Home' },
-        { label: 'About' },
-        { label: 'Contact us' },
-        { label: 'Cart' },
-        { label: 'products' },
-        { label: 'summary' },
-        { label: 'checkout' },
-        { label: 'login' },
-      
+  { label: 'Home', route: '/' },
+  { label: 'About', route: '/about' },
+  { label: 'Contact us', route: '/contact' },
+  { label: 'Cart', route: '/cart' },
+  { label: 'Products', route: '/Product' },
+  { label: 'Summary', route: '/summary' },
+  { label: 'Checkout', route: '/checkout' },
+  { label: 'Login', route: '/login' },
       ]
+  }
+},
+    methods: {
+        navigateToCategory(index) {
+    this.currentCategory = index;
+    this.$router.push(this.categories[index].route)
+  }
     }
   }
-}
+
 </script>
 
 <style scoped>
