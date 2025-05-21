@@ -6,9 +6,11 @@ import Summary from '../views/Summary.vue'
 import Products from '../views/Products.vue'
 import Login from '../views/Login.vue'
 
+
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/product', name: 'Product', component: Products },
+  { path: '/product', name: 'Products', component: Products },
+    { path: '/product/:id', name: 'Product', component: Product },
   { path: '/cart', name: 'Cart', component: Cart },
   { path: '/summary', name: 'Summary', component: Summary },
   { path: '/login', name: 'login', component: Login },

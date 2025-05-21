@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     repeatedBrands() {
-      return [...this.brands, ...this.brands]; // نكررهم مرتين
+      return [...this.brands, ...this.brands] 
     },
   },
 };
@@ -42,12 +42,10 @@ export default {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
 }
-
 .animate-slide {
   display: flex;
   animation: slide 20s linear infinite;

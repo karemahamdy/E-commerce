@@ -1,7 +1,14 @@
-export const navLinks = [
-  { id: 1, text: "Home", url: "/" },
-  { id: 2, text: "Products", url: "/products" },
-  { id: 3, text: "Who We Are", url: "/about" },
-  { id: 4, text: "Services", url: "/services" },
 
-];
+
+const navLinks = [
+  { label: 'Home', route: '/' },
+  { label: 'About', route: '/about' },
+  { label: 'Contact us', route: '/contact' },
+  { label: 'Cart', route: '/cart' },
+  { label: 'Products', route: '/Product' },
+  { label: 'Summary', route: '/summary' },
+  { label: 'Checkout', route: '/checkout' },
+  { label: 'Login', route: '/login' },
+]
+
+export default navLinks;

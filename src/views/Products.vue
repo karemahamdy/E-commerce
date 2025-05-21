@@ -110,6 +110,7 @@ import Paginator from 'primevue/paginator';
 
 export default {
   components: { InputText, Button, Paginator },
+  name: 'Products',
   data() {
     return {
       searchTerm: '',
