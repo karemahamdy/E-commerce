@@ -9,7 +9,6 @@ import './style.css'
 import './tailwind.css'
 
 
-
 export default {
   name: 'App',
   components: {
