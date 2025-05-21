@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --primary-color: #004d5a;
+  --secondary-color: #f8f9fa;
+  --accent-color: #f78c6b;
+  --text-color: #333333;
+  --muted-text-color: #777777;
+  --success-color: #22c55e;
+  --danger-color: #ef4444;
+  --warning-color: #facc15;
+}
+
+@layer components {
+  .btn-primary {
+    background-color: var(--primary-color) !important;
+    color: var(--secondary-color) !important;
+  }
+
+  .btn-secondary {
+    background-color: var(--secondary-color) !important;
+    color: var(--primary-color) !important;
+  }
+
+  .text-muted {
+    color: var(--muted-text-color) !important;
+  }
+
+  .text-success {
+    color: var(--success-color) !important;
+  }
+
+  .text-danger {
+    color: var(--danger-color) !important;
+  }
+
+  .text-warning {
+    color: var(--warning-color) !important;
+  }
+
+  .bg-accent {
+    background-color: var(--accent-color) !important;
+  }
+}
+
+@layer base {
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  li,
+  a,
+  div,
+  section,
+  article {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.wrapper {
+  /* padding: 0.25rem 0.5rem 0.25rem 0.5rem; */
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
