@@ -10,25 +10,24 @@
   </main>
   <Brands class="py-6 mb-4" />
   <SaleBanner />
-  <ShopNow />
+  <ShopNow/>
   <Footer />
 </template>
 
 <script>
-// import './style.css'
-// import './tailwind.css'
+
 import TopHeader from '../components/TopHeader.vue';
 import MainNavbar from '../components/MainNavbar.vue';
-import CategoryNavbar from '../components/CategoryNavbar.vue';
-import ProductGrid from '../components/ProductGrid.vue';
-import HeroSection from '../components/UI/HeroSection.vue';
+import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue';
+import HeroSection from '../components/layout/Home/HeroSection.vue';
+import FeaturesSection from '../components/layout/Home/FeaturesSection.vue';
 import TextBanner from '../components/TextBanner.vue';
-import Footer from '../components/UI/Footer.vue';
-import Category from '../components/UI/Category.vue';
-import SaleBanner from '../components/UI/SaleBanner.vue';
-import Brands from '../components/UI/Brands.vue';
-import FeaturesSection from '../components/FeaturesSection.vue';
-import ShopNow from '../components/ShopNow.vue';
+import ProductGrid from '../components/ProductGrid.vue';
+import Brands from '../components/layout/Home/Brands.vue';
+import SaleBanner from '../components/layout/Home/SaleBanner.vue';
+import ShopNow from '../components/ShopNow.vue'
+import Footer from '../components/Footer.vue';
+
 export default {
   name: 'Home',
   components: {
@@ -38,7 +37,6 @@ export default {
     ProductGrid,
     HeroSection,
     TextBanner,
-    Category,
     SaleBanner,
     Brands,
     FeaturesSection,

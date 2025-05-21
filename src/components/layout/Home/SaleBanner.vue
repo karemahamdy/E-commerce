@@ -11,7 +11,9 @@
           <div class="uppercase text-xs tracking-widest">{{ label }}</div>
         </div>
       </div>
-      <!-- <Button label="Shop Now" class="p-button-outlined p-button-white" /> -->
+      <route-link to="/products">
+        <Button label="Shop Now" class="p-button-white" style="background-color: #c0a27e; border-color: transparent;" />
+      </route-link>
     </div>
   </div>
 </template>

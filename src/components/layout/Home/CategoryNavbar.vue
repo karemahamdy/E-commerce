@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import CategoryButton from './CategoryButton.vue';
-import navLinks from '../data/links'
+import CategoryButton from '../../CategoryButton.vue';
+import navLinks from '../../../data/links'
 export default {
 
   name: 'CategoryNavbar',
