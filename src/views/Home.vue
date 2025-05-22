@@ -22,7 +22,7 @@ import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue';
 import HeroSection from '../components/layout/Home/HeroSection.vue';
 import FeaturesSection from '../components/layout/Home/FeaturesSection.vue';
 import TextBanner from '../components/TextBanner.vue';
-import ProductGrid from '../components/ProductGrid.vue';
+import ProductGrid from '../components/layout/Home/ProductGrid.vue';
 import Brands from '../components/layout/Home/Brands.vue';
 import SaleBanner from '../components/layout/Home/SaleBanner.vue';
 import OurBlog from '../components/layout/Home/OurBlog.vue'

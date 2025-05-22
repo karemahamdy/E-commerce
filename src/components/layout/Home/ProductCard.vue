@@ -14,7 +14,6 @@
         </button>
       </div>
     </div>
-
     <!-- Product Info -->
     <div class="p-4">
       <div class="text-sm text-gray-500 mb-1">{{ product.category }}</div>
