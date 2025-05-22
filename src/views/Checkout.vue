@@ -2,7 +2,9 @@
     <TopHeader />
   <MainNavbar />
   <CategoryNavbar />
+
   <div class="max-w-7xl mx-auto p-6 grid grid-cols-3 lg:grid-cols-3 gap-8">
+
     <div class="lg:col-span-2 space-y-6">
       <div class="border-l-4 border-amber-900 bg-gray-100 p-4">
         <p class="text-sm text-gray-700"><i class="pi pi-tag mr-2"></i>donot forget your coupon</p>
@@ -11,12 +13,12 @@
       <BillingDetails/>
     </div>
 
-    <!-- Order Summary -->
-    <div class="bg-gray-50 p-6 rounded-lg shadow space-y-4 h-fit-content">
+    <div class="bg-gray-50 p-6 rounded-lg shadow space-y-4" style="height: fit-content;">
     <OrderSummary/>
     <PaymentWay/>
       <Button label="Place Order" class="w-full mt-4" style="background-color: black; border-color: black;" />
     </div>
+
   </div>
     <Footer />
 </template>
