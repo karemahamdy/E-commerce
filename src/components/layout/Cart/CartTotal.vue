@@ -9,7 +9,7 @@
       <span class="text-gray-600 font-medium">Total</span>
       <span class="text-red-600 font-bold text-lg">${{ subtotal.toFixed(2) }}</span>
     </div>
-    <router-link to="/summary">
+    <router-link to="/checkout">
       <Button label="Proceed to Checkout" class="w-full" style="background-color: black !important;" />
     </router-link>
   </div>
