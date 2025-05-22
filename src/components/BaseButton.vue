@@ -7,11 +7,14 @@
       textColor,
       hoverBgColor,
       rounded,
+        borderColor ? 'border' : '',
       padding,
       textSize,
       'transition',
+        $attrs.class
     ]"
     @click="handleClick"
+     v-bind="$attrs"
   >
     {{ label }}
   </component>
@@ -20,6 +23,7 @@
 <script>
 export default {
   name: 'BaseButton',
+    inheritAttrs: false,
   props: {
     label: {
       type: String,
@@ -30,6 +34,9 @@ export default {
       default: null
     },
     bgColor: {
+      type: String,  
+    },
+      borderColor: {
       type: String,  
     },
     textColor: {
@@ -54,8 +61,13 @@ export default {
   },
   computed: {
     computedClasses() {
-      return `${this.bgColor} ${this.textColor} ${this.hoverBgColor}  ${this.padding} ${this.rounded} ${this.textSize} ${this.hoverTextColor}`
+      return `${this.bgColor} ${this.textColor} ${this.hoverBgColor}  ${this.padding} ${this.rounded} ${this.textSize} ${this.hoverTextColor} ${this.borderColor}`
     }
-  }
+  },
+   methods: {
+    handleClick(event) {
+      this.$emit('click', event)
+    }
+}
 }
 </script>

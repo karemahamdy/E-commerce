@@ -1,11 +1,14 @@
 <template>
+    <TopHeader />
+  <MainNavbar />
+  <CategoryNavbar />
   <div class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-3 lg:grid-cols-3 gap-8">
     <!-- Cart Items -->
-    <div class="lg:col-span-2">
+    <div class="flex flex-col  justify-between gap-4 lg:col-span-2">
       <h2 class="text-2xl font-semibold mb-6">Shopping Cart</h2>
       <div v-for="(item, index) in cartItems" :key="index" class="flex items-center justify-between py-4 border-b">
         <!-- Product Info -->
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4 w-[40%]">
           <img :src="item.image" alt="Product" class="w-16 h-16 rounded-md object-cover" />
           <div>
             <h4 class="font-medium">{{ item.name }}</h4>
@@ -14,23 +17,24 @@
         </div>
 
         <!-- Quantity Controls -->
-        <div class="flex items-center gap-2">
-          <Button icon="pi pi-minus" class="p-1" @click="decreaseQty(index)" />
-          <span>{{ item.quantity }}</span>
-          <Button icon="pi pi-plus" class="p-1" @click="increaseQty(index)" />
+        <div class="flex items-center justify-center gap-2 ">
+            <BaseButton label="-" bgColor="bg-[sienna]" textColor="text-white" borderColor="border-[sienna]" 
+          rounded="rounded-full" padding="" textSize="text-base"  @click="decreaseQty(index)"/>
+          <h6>{{ item.quantity }}</h6>
+            <BaseButton label="+" bgColor="bg-[sienna]" textColor="text-white" borderColor="border-[sienna]" 
+          rounded="rounded-full" padding="" textSize="text-[18px]"  @click="increaseQty(index)"/>
         </div>
 
         <!-- Total Price -->
         <div class="w-24 text-right font-semibold">${{ (item.price * item.quantity).toFixed(2) }}</div>
 
         <!-- Remove -->
-        <Button icon="pi pi-times" severity="" text @click="removeItem(index)" />
+        <Button icon="pi pi-times" severity="" text @click="removeItem(index)" style="color: black !important;"/>
       </div>
 
-      <!-- Cart Controls -->
       <div class="flex justify-between mt-6">
-        <Button label="Continue Shopping" outlined />
-        <!-- <Button label="Update Cart" icon="pi pi-refresh" /> -->
+        <BaseButton label="Continue Shopping" bgColor="" textColor="text-[sienna]" borderColor="border-[sienna]" 
+          rounded="rounded-lg" padding="px-4 py-4" textSize="text-base" to="/product" />
       </div>
     </div>
 
@@ -38,8 +42,9 @@
     <div>
       <h3 class="text-xl font-semibold mb-4">Discount Codes</h3>
       <div class="flex mb-6">
-        <InputText v-model="coupon" placeholder="Coupon code" class="flex-1" />
-        <Button label="Apply" class="ml-2" />
+        <InputText v-model="coupon" placeholder="Coupon code" class="flex-1 mx-2" />
+          <BaseButton label="Apply" bgColor="bg-[sienna]" textColor="text-white" borderColor="border-[sienna]" 
+          rounded="rounded-lg" padding="" textSize="text-base" />
       </div>
 
       <div class="bg-gray-50 p-6 rounded-lg shadow">
@@ -52,20 +57,32 @@
           <span class="text-gray-600 font-medium">Total</span>
           <span class="text-red-600 font-bold text-lg">${{ subtotal.toFixed(2) }}</span>
         </div>
-        <Button label="Proceed to Checkout" class="w-full" />
+    
+        <Button label="Proceed to Checkout" class="w-full" style="background-color: black !important;"/>
       </div>
     </div>
   </div>
+  <Footer/>
 </template>
 
 <script>
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
+import TopHeader from '../components/TopHeader.vue'
+import MainNavbar from '../components/MainNavbar.vue'
+import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue'
+import Footer from '../components/Footer.vue'
+import BaseButton from '../components/BaseButton.vue'
 
 export default {
   components: {
     Button,
-    InputText
+    InputText,
+    TopHeader,
+    MainNavbar,
+    CategoryNavbar,
+    BaseButton,
+    Footer
   },
   data() {
     return {
@@ -122,3 +139,20 @@ export default {
   }
 }
 </script>
+<style scoped>
+.p-button {
+    color: #ffffff;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: none;
+
+    outline-color: transparent;
+}
+.p-button:focus {
+    border: 1px solid transparent !important;
+    outline-color: transparent !important;
+    box-shadow: none !important;
+     outline: none !important;
+}
+</style>
