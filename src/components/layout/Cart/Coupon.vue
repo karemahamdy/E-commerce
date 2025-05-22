@@ -8,7 +8,7 @@
 
 <script>
 import InputText from 'primevue/inputtext'
-import BaseButton from '@/components/BaseButton.vue'
+import BaseButton from '../../BaseButton.vue';
 
 export default {
   components: { InputText, BaseButton },
@@ -17,3 +17,20 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.p-button {
+  color: #ffffff;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: none;
+  outline-color: transparent;
+}
+.p-button:focus {
+  border: 1px solid transparent !important;
+  outline-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+</style>
