@@ -10,7 +10,7 @@
   </main>
   <Brands class="py-6 mb-4" />
   <SaleBanner />
-  <ShopNow/>
+  <OurBlog/>
   <Footer />
 </template>
 
@@ -25,7 +25,7 @@ import TextBanner from '../components/TextBanner.vue';
 import ProductGrid from '../components/ProductGrid.vue';
 import Brands from '../components/layout/Home/Brands.vue';
 import SaleBanner from '../components/layout/Home/SaleBanner.vue';
-import ShopNow from '../components/ShopNow.vue'
+import OurBlog from '../components/layout/Home//OurBlog.vue'
 import Footer from '../components/Footer.vue';
 
 export default {
@@ -40,7 +40,7 @@ export default {
     SaleBanner,
     Brands,
     FeaturesSection,
-    ShopNow,
+    OurBlog,
     Footer
   },
 }
