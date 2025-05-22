@@ -13,7 +13,7 @@
   </section>
 </template>
 
-<script>
+<script setup>
 const blogPosts = [
   {
     title: "Black Friday Guide: Best Sales & Discount Codes",

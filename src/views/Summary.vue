@@ -1,4 +1,7 @@
 <template>
+    <TopHeader />
+  <MainNavbar />
+  <CategoryNavbar />
   <div class="max-w-7xl mx-auto p-6 grid grid-cols-3 lg:grid-cols-3 gap-8">
     <!-- Billing Form -->
     <div class="lg:col-span-2 space-y-6">
@@ -67,18 +70,27 @@
       <Button label="Place Order" class="w-full mt-4 bg-amber-900" style="background-color: brown;" />
     </div>
   </div>
+    <Footer />
 </template>
 
 <script>
 import InputText from 'primevue/inputtext'
 import Checkbox from 'primevue/checkbox'
 import Button from 'primevue/button'
+import Footer from '../components/Footer.vue'
+import TopHeader from '../components/TopHeader.vue'
+import MainNavbar from '../components/MainNavbar.vue'
+import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue'
 
 export default {
   components: {
     InputText,
     Checkbox,
-    Button
+    Button,
+    Footer,
+    CategoryNavbar,
+    MainNavbar,
+    TopHeader
   },
   data() {
     return {
