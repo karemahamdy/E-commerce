@@ -1,9 +1,7 @@
 <template>
   <nav class="bg-black py-4 border-b border-gray-200">
     <div class="container mx-auto px-4 flex items-center justify-between">
-      <div class="text-2xl font-bold text-[#c0a27e]">
-        MegaMart
-      </div>
+      <Logo/>
       <SearchBar/>
       <!-- User Controls -->
       <div class="flex items-center">
@@ -29,12 +27,14 @@
 </template>
 
 <script>
+import Logo from './Logo.vue';
 import SearchBar from './SearchBar.vue';
 
 export default {
   name: 'MainNavbar',
   components : { 
-    SearchBar
+    SearchBar,
+    Logo
   }
 }
 </script>
