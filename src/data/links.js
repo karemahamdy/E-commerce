@@ -6,7 +6,7 @@ const navLinks = [
   { label: 'Contact us', route: '/contact' },
   { label: 'Cart', route: '/cart' },
   { label: 'Products', route: '/Product' },
-  { label: 'Summary', route: '/summary' },
+  { label: 'Checkout', route: '/checkout' },
   { label: 'Checkout', route: '/checkout' },
   { label: 'Login', route: '/login' },
 ]

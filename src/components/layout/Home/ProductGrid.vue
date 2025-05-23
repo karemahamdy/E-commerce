@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-end items-center mb-4">
-      <router-link to="/products">
+      <router-link to="/product">
         <button class="text-[#c0a27e] rounded-md px-4 py-2 text-sm transition-colors cursor-pointer items-left ">
           View All
         </button>
