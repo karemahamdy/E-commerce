@@ -58,26 +58,7 @@
       </p>
     </div>
 
-    <!-- Product Description -->
-    <div class="mt-12 border-t pt-8 col-span-2">
-      <h2 class="text-xl font-semibold mb-4">Product Description</h2>
-      <p class="text-gray-700 mb-4">
-        The Reebok Zig Kinetica 3 combines style and performance with its innovative design.
-        These shoes feature Reebok's signature Zig Energy Bands that compress and expand with each step,
-        returning energy to your stride and propelling you forward.
-      </p>
-      <ul class="list-disc pl-6 text-gray-700 mb-4">
-        <li>Breathable mesh upper for increased airflow</li>
-        <li>Zig Energy Bands for responsive cushioning</li>
-        <li>Durable rubber outsole for traction</li>
-        <li>Floatride Fuel midsole for lightweight cushioning</li>
-        <li>Seamless construction for reduced irritation</li>
-      </ul>
-      <p class="text-gray-700">
-        <strong>Materials:</strong> Upper: Mesh, Synthetic — Midsole: Floatride Fuel — Outsole: Rubber
-      </p>
-    </div>
-
+    <ProductDescription />
     <!-- Reviews -->
     <div class="mt-12 col-span-2">
       <h2 class="text-xl font-semibold mb-6">Customer Reviews ({{ product.reviews }})</h2>
@@ -100,47 +81,15 @@
           </div>
         </div>
       </div>
-
-      <div class="space-y-6">
-        <div class=" pb-4">
-          <div class="flex justify-between mb-2">
-            <div class="flex items-center space-x-2">
-              <img src="../../public/assets/images/blog-01.jpg.webp" class="w-8 h-8 rounded-full" />
-              <span class="font-medium">Mark J.</span>
-            </div>
-            <span class="text-sm text-gray-500">2 weeks ago</span>
-          </div>
-          <div class="flex text-yellow-400 mb-2">
-            <i class="pi pi-star-fill" v-for="n in 5" :key="n"></i>
-          </div>
-          <p class="text-gray-700">
-            Incredible shoes! Excellent cushioning and support. The Zig tech really adds bounce to my stride. Perfect
-            for daily runs.
-          </p>
-        </div>
-
-        <div class=" pb-4">
-          <div class="flex justify-between mb-2">
-            <div class="flex items-center space-x-2">
-              <img src="../../public/assets/images/blog-01.jpg.webp" class=" w-8 h-8 rounded-full" />
-              <span class="font-medium">Sarah K.</span>
-            </div>
-            <span class="text-sm text-gray-500">1 month ago</span>
-          </div>
-          <div class="flex text-yellow-400 mb-2">
-            <i class="pi pi-star-fill" v-for="n in 4" :key="n"></i>
-            <i class="pi pi-star"></i>
-          </div>
-          <p class="text-gray-700">
-            Great style and comfort. A bit narrow though – size up if you have wide feet.
-          </p>
-        </div>
-      </div>
+      <ProductComments/>
+     </div>
     </div>
-  </div>
 </template>
 
 <script>
+import ProductComments from '../components/layout/Product/ProductId/ProductComments.vue';
+import ProductDescription from '../components/layout/Product/ProductId/ProductDescription.vue';
+
 export default {
   name: 'Product',
   data() {
@@ -170,6 +119,10 @@ export default {
         1: 0
       }
     };
+  },
+  components: {
+    ProductComments,
+    ProductDescription
   },
   computed: {
     ratingPercentages() {
