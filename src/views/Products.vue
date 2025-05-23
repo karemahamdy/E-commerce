@@ -1,4 +1,7 @@
 <template>
+  <TopHeader />
+  <MainNavbar />
+  <CategoryNavbar />
   <div class="flex gap-8 p-6 bg-gray-50 min-h-screen">
     <SidebarFilters v-model:searchTerm="searchTerm" v-model:selectedCategory="selectedCategory"
       v-model:selectedBrand="selectedBrand" v-model:selectedPrice="selectedPrice" v-model:selectedSize="selectedSize"
@@ -8,13 +11,18 @@
     <ProductGrid :products="paginatedProducts" :totalRecords="filteredProducts.length" v-model:first="first"
       @page="onPageChange" />
   </div>
+  <Footer />
 </template>
 
 <script>
+import Footer from '../components/Footer.vue';
+import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue';
 import ProductGrid from '../components/layout/Product/ProductGrid.vue';
 import SidebarFilters from '../components/layout/Product/SidebarFilters.vue';
+import MainNavbar from '../components/MainNavbar.vue';
+import TopHeader from '../components/TopHeader.vue';
 export default {
-  components: { SidebarFilters, ProductGrid },
+  components: { SidebarFilters, ProductGrid, CategoryNavbar, MainNavbar, TopHeader, Footer },
   data() {
     return {
       searchTerm: '',
