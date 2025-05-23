@@ -1,6 +1,6 @@
 <template>
   <main class="flex-1">
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+    <div class="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
       <div v-for="product in products" :key="product.id"
         class="bg-white p-4 rounded-lg shadow group hover:shadow-lg transition">
         <div class="relative">
