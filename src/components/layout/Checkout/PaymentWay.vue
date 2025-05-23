@@ -12,11 +12,8 @@
 </template>
 
 <script>
-
 import Checkbox from 'primevue/checkbox'
 import Button from 'primevue/button'
-
-
 export default {
   components: {  
     Checkbox,

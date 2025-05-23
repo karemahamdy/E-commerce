@@ -1,116 +1,20 @@
 <template>
   <div class="flex gap-8 p-6 bg-gray-50 min-h-screen">
+    <SidebarFilters v-model:searchTerm="searchTerm" v-model:selectedCategory="selectedCategory"
+      v-model:selectedBrand="selectedBrand" v-model:selectedPrice="selectedPrice" v-model:selectedSize="selectedSize"
+      v-model:selectedColor="selectedColor" v-model:selectedTag="selectedTag" :categories="categories" :brands="brands"
+      :prices="prices" :sizes="sizes" :colors="colors" :tags="tags" />
 
-    <!-- Sidebar -->
-    <aside class="w-64 space-y-8">
-      <!-- Search -->
-      <div>
-        <InputText v-model="searchTerm" placeholder="Search..." class="w-full mb-4" />
-      </div>
-
-      <!-- Categories -->
-      <div>
-        <h2 class="font-semibold mb-3">CATEGORIES</h2>
-        <ul class="space-y-2">
-          <li v-for="cat in categories" :key="cat.name" class="flex justify-between cursor-pointer hover:text-blue-600"
-            @click="selectedCategory = cat.name">
-            <span>{{ cat.name }}</span>
-            <span class="text-gray-500">({{ cat.count }})</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Branding -->
-      <div>
-        <h2 class="font-semibold mb-3">BRANDING</h2>
-        <ul class="space-y-2">
-          <li v-for="brand in brands" :key="brand" class="cursor-pointer hover:text-blue-600"
-            @click="selectedBrand = brand">
-            {{ brand }}
-          </li>
-        </ul>
-      </div>
-
-      <!-- Filter Price -->
-      <div>
-        <h2 class="font-semibold mb-3">FILTER PRICE</h2>
-        <ul class="space-y-2">
-          <li v-for="range in prices" :key="range.label" class="cursor-pointer hover:text-blue-600"
-            @click="selectedPrice = range">
-            {{ range.label }}
-          </li>
-        </ul>
-      </div>
-
-      <!-- Sizes -->
-      <div>
-        <h2 class="font-semibold mb-3">SIZE</h2>
-        <div class="flex flex-wrap gap-2">
-          <Button v-for="size in sizes" :key="size" class="p-2 border border-gray-300 rounded hover:bg-gray-200"
-            @click="selectedSize = size">
-            {{ size }}
-          </Button>
-        </div>
-      </div>
-
-      <!-- Colors -->
-      <div>
-        <h2 class="font-semibold mb-3">COLORS</h2>
-        <div class="flex flex-wrap gap-2">
-          <span v-for="color in colors" :key="color" :style="{ backgroundColor: color }"
-            class="w-6 h-6 rounded-full border cursor-pointer" @click="selectedColor = color">
-          </span>
-        </div>
-      </div>
-
-      <!-- Tags -->
-      <div>
-        <h2 class="font-semibold mb-3">TAGS</h2>
-        <div class="flex flex-wrap gap-2">
-          <Button v-for="tag in tags" :key="tag" class="p-2 text-xs bg-gray-100 border hover:bg-gray-200"
-            @click="selectedTag = tag">
-            {{ tag }}
-          </Button>
-        </div>
-      </div>
-
-    </aside>
-
-    <!-- Products -->
-    <main class="flex-1">
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
-        <div v-for="product in paginatedProducts" :key="product.id"
-          class="bg-white p-4 rounded-lg shadow group hover:shadow-lg transition">
-
-          <div class="relative">
-            <img :src="product.image" alt="" class="w-full h-52 object-cover mb-3 rounded" />
-            <span v-if="product.sale"
-              class="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded">SALE</span>
-          </div>
-
-          <h3 class="font-semibold mb-1">{{ product.name }}</h3>
-          <div class="flex items-center text-yellow-400 mb-2">
-            <i v-for="n in 5" :key="n" class="pi" :class="product.rating >= n ? 'pi-star-fill' : 'pi-star'">
-            </i>
-          </div>
-          <p class="text-gray-800 font-bold">${{ product.price }}</p>
-        </div>
-      </div>
-
-      <!-- Pagination -->
-      <Paginator :rows="9" :totalRecords="filteredProducts.length" v-model:first="first" @page="onPageChange" />
-    </main>
+    <ProductGrid :products="paginatedProducts" :totalRecords="filteredProducts.length" v-model:first="first"
+      @page="onPageChange" />
   </div>
 </template>
 
 <script>
-import InputText from 'primevue/inputtext';
-import Button from 'primevue/button';
-import Paginator from 'primevue/paginator';
-
+import ProductGrid from '../components/layout/Product/ProductGrid.vue';
+import SidebarFilters from '../components/layout/Product/SidebarFilters.vue';
 export default {
-  components: { InputText, Button, Paginator },
-  name: 'Products',
+  components: { SidebarFilters, ProductGrid },
   data() {
     return {
       searchTerm: '',
@@ -133,7 +37,7 @@ export default {
         { label: '$50 - $100', min: 50, max: 100 },
       ],
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
-      colors: ['#000000', '#F4D03F', '#E74C3C', '#8E44AD'],
+      colors: ['#000000', '#F4D03F', '#E74C3C', '#8E44AD', '#3498DB', '#2ECC71' , '#E67E22', '#F39C12'],
       tags: ['Product', 'Bags', 'Fashion', 'Clothing'],
 
       products: Array.from({ length: 40 }).map((_, i) => ({
@@ -144,7 +48,7 @@ export default {
         price: Math.floor(Math.random() * 200),
         image: 'https://via.placeholder.com/400x300'
       }))
-    }
+    };
   },
   computed: {
     filteredProducts() {
@@ -177,10 +81,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.pi-star,
-.pi-star-fill {
-  font-size: 1rem;
-}
-</style>
