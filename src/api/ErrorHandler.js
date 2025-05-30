@@ -1,11 +1,11 @@
-import  { AxiosError } from 'axios'
+
 
 export function handleApiError(error) {
   if (!error || typeof error !== 'object') {
     return 'Unknown error occurred'
   }
 
-  const err = error 
+  // const err = error 
 
   if (err.response) {
     switch (err.response.status) {
