@@ -1,4 +1,5 @@
 <template>
+  <Button @click="redirectToSalla">Connect with Salla</Button>
   <TopHeader />
   <MainNavbar />
   <CategoryNavbar />
@@ -10,7 +11,7 @@
   </main>
   <Brands class="py-6 mb-4" />
   <SaleBanner />
-  <OurBlog/>
+  <OurBlog />
   <Footer />
 </template>
 
@@ -43,6 +44,27 @@ export default {
     OurBlog,
     Footer
   },
+  methods: {
+    redirectToSalla() {
+      const clientId = 'a7288bfe-f1f5-4ed0-a839-9903ec9b2699';
+      const redirectUri = encodeURIComponent('http://localhost:5173/callback');
+      const scope = encodeURIComponent('');
+      // const responseType = 'code';
+      const state = 'fixedState123'
+      localStorage.setItem('oauth_state', state);
+      // https://accounts.salla.sa/oauth2/auth?client_id=your_client_id&response_type=code&redirect_uri=https://client-app.com/callback&scope=read write&state=random_value
+      const url = `https://accounts.salla.sa/oauth2/auth?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
+      console.log(url);
+
+      
+        console.log('Redirecting to Salla...');
+
+        window.location.href = url;
+       // Optional delay for better UX
+      console.log(url);
+
+    }
+  }
 }
 
 </script>
