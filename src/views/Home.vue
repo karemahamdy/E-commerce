@@ -1,5 +1,5 @@
 <template>
-  <Button @click="redirectToSalla">Connect with Salla</Button>
+  <!-- <Button @click="redirectToSalla">Connect with Salla</Button> -->
   <TopHeader />
   <MainNavbar />
   <CategoryNavbar />
