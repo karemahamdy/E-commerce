@@ -1,5 +1,9 @@
 <template>
-  <div class="flex gap-8 p-6 bg-gray-50 min-h-screen">
+  <Loading v-if="loading" />
+  <Error v-else-if="error" :message="error" />
+  <Empty v-else-if="!products.length" />
+
+  <div v-else class="flex gap-8 p-6 bg-gray-50 min-h-screen">
     <SidebarFilters v-model:searchTerm="searchTerm" v-model:selectedCategory="selectedCategory"
       v-model:selectedBrand="selectedBrand" v-model:selectedPrice="selectedPrice" v-model:selectedSize="selectedSize"
       v-model:selectedColor="selectedColor" v-model:selectedTag="selectedTag" :categories="categories" :brands="brands"
@@ -13,8 +17,11 @@
 import ProductGrid from '../components/layout/Product/ProductGrid.vue';
 import SidebarFilters from '../components/layout/Product/SidebarFilters.vue';
 import { supabase } from '../lib/supabase.js';
+import Loading from "../components/Loading.vue";
+import Error from "../components/Error.vue";
+import Empty from "../components/Empty.vue";
 export default {
-  components: { SidebarFilters, ProductGrid },
+  components: { SidebarFilters, ProductGrid, Loading, Error, Empty  },
   data() {
     return {
       searchTerm: '',
@@ -28,6 +35,8 @@ export default {
       totalRecords: 0,
       rowsPerPage: 12,
       first: 0,
+      loading: false,
+      error: null,
       categories: [
         { name: 'Men', count: 20 },
         { name: 'Women', count: 20 },
@@ -71,11 +80,7 @@ export default {
 
       return result;
     },
-    paginatedProducts() {
-      const start = this.first;
-      const end = this.first + 12;
-    
-    }
+
   },
   methods: {
     async fetchProducts() {
@@ -85,7 +90,7 @@ export default {
         .select('*', { count: 'exact' })
         .range(this.first, this.first + this.rowsPerPage - 1);
       if (error) {
-        console.error(error);
+        this.error = error.message;
       } else {
         this.products = data;
         this.totalRecords = count;
