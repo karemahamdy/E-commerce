@@ -16,6 +16,16 @@
           <i v-for="n in 5" :key="n" class="pi" :class="product.rating >= n ? 'pi-star-fill' : 'pi-star'"></i>
         </div>
         <p class="text-gray-800 font-bold">${{ product.price }}</p>
+        <div class="mt-4 flex gap-2">
+          <router-link to="/product">
+            <BaseButton label="Know More" bgColor="bg-[sienna]" textColor="text-white" borderColor="border-[sienna]"
+              rounded="rounded" padding="" textSize="text-base" />
+          </router-link>
+          <router-link to="/cart">
+            <BaseButton label="add to cart" bgColor="bg-[sienna]" textColor="text-white" borderColor="border-[sienna]"
+              rounded="rounded" padding="" textSize="text-base" />
+          </router-link>
+        </div>
       </div>
     </div>
 
@@ -26,9 +36,9 @@
 
 <script>
 import Paginator from 'primevue/paginator';
-
+import BaseButton from '../../BaseButton.vue';
 export default {
-  components: { Paginator },
+  components: { Paginator, BaseButton },
   props: {
     products: Array,
     totalRecords: Number
@@ -51,5 +61,19 @@ export default {
 .pi-star,
 .pi-star-fill {
   font-size: 1rem;
+}
+.p-button {
+  color: #ffffff;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: none;
+  outline-color: transparent;
+}
+.p-button:focus {
+  border: 1px solid transparent !important;
+  outline-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 </style>
