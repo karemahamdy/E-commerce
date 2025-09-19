@@ -107,7 +107,7 @@ export default {
           name: data.name || 'Unnamed Product',
           price: data.price || 0,
           reviews_count: data.reviews_count || 0,
-          sizes: this.sizes,
+          sizes: data.sizes,
           details: data.details || '',
           comments: data.comments ? [data.comments] : [],
           colors: this.staticColors,
