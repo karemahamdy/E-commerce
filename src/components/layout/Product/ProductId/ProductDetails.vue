@@ -32,14 +32,15 @@
         </button>
       </div>
     </div>
+    <router-link to="/cart">
+      <button class="w-[50%] bg-black text-white py-2 rounded-xl text-lg font-semibold hover:opacity-90 transition">
+        Add to cart
+      </button>
+      </router-link>
 
-    <button class="w-[50%] bg-black text-white py-2 rounded-xl text-lg font-semibold hover:opacity-90 transition">
-      Add to cart
-    </button>
-
-    <p class="text-sm text-gray-500 text-left mt-2">
-      Free delivery on orders over $30.00
-    </p>
+      <p class="text-sm text-gray-500 text-left mt-2">
+        Free delivery on orders over $30.00
+      </p>
   </div>
 </template>
 
