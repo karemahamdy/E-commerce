@@ -12,7 +12,7 @@
       :colors="product.colors" :sizes="product.sizes" :initialColor="selectedColor" :initialSize="selectedSize" />
 
     <!-- Description -->
-    <ProductDescription :description="product.details" />
+    <ProductDescription :description="product.details" :materials="product.materials" />
 
     <!-- Reviews + Comments -->
     <div class="col-span-2 bg-white px-8 py-4 rounded-lg shadow">
@@ -111,7 +111,8 @@ export default {
           details: data.details || '',
           comments: data.comments ? [data.comments] : [],
           colors: this.staticColors,
-          images: this.staticImages
+          images: this.staticImages,
+          materials: data.materials,
         };
 
         this.selectedImage = this.product.images[0];
