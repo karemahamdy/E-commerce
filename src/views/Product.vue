@@ -98,7 +98,7 @@ export default {
 
         this.product = {
           id: data.id,
-          name: data.name || 'Unnamed Product',
+          name: data.name,
           price: data.price || 0,
           reviews_count: data.reviews_count || 0,
           sizes: data.sizes,
