@@ -11,7 +11,7 @@ import Products from '../views/Products.vue'
 const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/product', name: 'Products', component: Products },
-  { path: '/product/:id', name: 'Product', component: Product },
+  { path: '/product/:id', name: 'Product', component: Product, props: true },
   { path: '/cart', name: 'Cart', component: Cart },
   { path: '/checkout', name: 'Checkout', component: Checkout },
   { path: '/login', name: 'login', component: Login },

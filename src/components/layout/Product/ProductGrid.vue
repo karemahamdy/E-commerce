@@ -4,7 +4,7 @@
       <div v-for="product in products" :key="product.id"
         class="bg-white p-4 rounded-lg shadow group hover:shadow-lg transition">
         <div class="relative">
-          <img :src="product.image_url" alt="" class="w-80 h-80 object-cover mb-3 rounded" />
+          <img :src="product.image_url" alt="" class="w-100 h-100 object-cover mb-3 rounded" />
           <span v-if="product.sale" class="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded">
             SALE
           </span>
@@ -17,7 +17,7 @@
         </div>
         <p class="text-gray-800 font-bold">${{ product.price }}</p>
         <div class="mt-4 flex gap-2">
-          <router-link to="/product">
+          <router-link :to="`/product/${product.id}`">
             <BaseButton label="Know More" bgColor="bg-[sienna]" textColor="text-white" borderColor="border-[sienna]"
               rounded="rounded" padding="" textSize="text-base" />
           </router-link>
