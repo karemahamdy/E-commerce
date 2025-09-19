@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-6">
-    <div v-for="comment in comments" :key="comment.name" class="pb-4">
+    <div v-for="comment in comment" :key="comment.name" class="pb-4">
       <div class="flex justify-between mb-2">
         <div class="flex items-center space-x-2">
           <img :src="comment.image" class="w-8 h-8 rounded-full" />
@@ -12,7 +12,7 @@
         <i class="pi pi-star-fill" v-for="n in comment.stars" :key="n"></i>
         <i class="pi pi-star" v-for="n in 5 - comment.stars" :key="'empty-' + n"></i>
       </div>
-      <p class="text-gray-700">{{ comment.text }}</p>
+      <p class="text-gray-700">{{ comments }}</p>
     </div>
   </div>
 </template>
@@ -20,9 +20,12 @@
 <script>
 export default {
   name: "ProductComments",
+  props: {
+    comments: String
+  },
   data() {
     return {
-      comments: [
+      comment: [
         {
           name: "Layla Hassan",
           image: "https://randomuser.me/api/portraits/women/44.jpg",

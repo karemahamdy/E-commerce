@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="selectedImage" alt="Main product" class="w-full rounded-2xl shadow" />
+    <img :src="selectedImage" alt="Main product" class="w-120 h-100 rounded-2xl shadow" />
     <div class="flex gap-3 mt-4 overflow-x-auto">
       <img v-for="(img, index) in images" :key="index" :src="img" alt="Thumbnail" @click="selectImage(img)"
         class="w-20 h-20 object-cover rounded-xl border cursor-pointer hover:border-black transition"

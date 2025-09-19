@@ -1,23 +1,24 @@
 <template>
   <TopHeader />
   <MainNavbar />
-  <CategoryNavbar/>
-  <div class="max-w-6xl mx-auto p-6 grid grid-cols-2 md:grid-cols-2 gap-10">
+  <CategoryNavbar />
 
-    <ProductImages :images="product.images" :initialImage="product.images[0]" />
+  <div class="max-w-6xl mx-auto p-6 grid grid-cols-2 md:grid-cols-2 gap-10" v-if="product">
 
-    <ProductDetails :title="product.title" :reviews="product.reviews" :price="product.price" :colors="product.colors"
-      :sizes="product.sizes" :initialColor="product.colors[0]" :initialSize="product.sizes[1]" />
-
-    <ProductDescription />
-
-    <div class=" col-span-2 bg-white  px-8 py-4 rounded-lg shadow">
-      <ProductReviews :productReviews="product.reviews" :reviewsCount="product.reviews" :ratingCounts="ratingCounts"
-        :ratingPercentages="ratingPercentages" />
-      <ProductComments />
+    <ProductImages :images="product.images" :initialImage="selectedImage" />
+    <ProductDetails :title="product.name" :reviews="product.reviews_count" :price="product.price"
+      :colors="product.colors" :sizes="product.sizes" :initialColor="selectedColor" :initialSize="selectedSize" />
+    <ProductDescription :description="product.details" :materials="product.materials" />
+    <div class="col-span-2 bg-white px-8 py-4 rounded-lg shadow">
+      <ProductReviews :reviews_count="product.reviews_count" :reviewsCount="product.reviews_count"
+        :ratingCounts="ratingCounts" :ratingPercentages="ratingPercentages" />
+      <ProductComments :comments = "product.comments"/>
     </div>
   </div>
-  <!-- <Footer /> -->
+
+  <div v-else class="text-center py-10">Loading product...</div>
+
+  <Footer />
 </template>
 
 <script>
@@ -30,28 +31,29 @@ import ProductImages from '../components/layout/Product/ProductId/ProductImages.
 import ProductReviews from '../components/layout/Product/ProductId/ProductReviews.vue';
 import MainNavbar from '../components/MainNavbar.vue';
 import TopHeader from '../components/TopHeader.vue';
+import { supabase } from '../lib/supabase.js';
 
 export default {
   name: 'Product',
+  props: ['id'],
   data() {
     return {
-      product: {
-        title: "Shoes Reebok Zig Kinetica 3",
-        reviews: 42,
-        price: 199.0,
-        images: [
-          "../../public/assets/images/bag1.avif",
-          "../../public/assets/images/bag2.avif",
-          "../../public/assets/images/bag3.avif",
-          "../../public/assets/images/bag4.avif",
-          "../../public/assets/images/P00979395_d4.avif"
-        ],
-        colors: ['#ffffff', '#e5e5e5', '#000000'],
-        sizes: ["40.5", "41", "42", "43", "43.5", "44", "44.5", "45", "46"]
-      },
-      selectedImage: "../../public/assets/images/bag1.avif",
-      selectedColor: '#ffffff',
-      selectedSize: "41",
+      product: null,
+      selectedImage: null,
+      selectedColor: null,
+      selectedSize: null,
+      loading: false,
+      error: null,
+      staticColors: ['#ffffff', '#e5e5e5', '#000000'],
+        // colors: ['#ffffff', '#e5e5e5', '#000000'],
+        sizes: ["40.5", "41", "42", "43", "43.5", "44", "44.5", "45", "46"],
+      staticImages: [
+        "../../public/assets/images/bag1.avif",
+        "../../public/assets/images/bag2.avif",
+        "../../public/assets/images/bag3.avif",
+        "../../public/assets/images/bag4.avif",
+        "../../public/assets/images/P00979395_d4.avif"
+      ],
       ratingCounts: {
         5: 34,
         4: 6,
@@ -81,6 +83,46 @@ export default {
       }
       return result;
     }
+  },
+  methods: {
+    async fetchProduct() {
+      this.loading = true;
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select('*')
+          .eq('id', this.id)
+          .single();
+
+        if (error) throw error;
+
+        this.product = {
+          id: data.id,
+          name: data.name || 'Unnamed Product',
+          price: data.price || 0,
+          reviews_count: data.reviews_count || 0,
+          sizes: data.sizes,
+          details: data.details || '',
+          comments: data.comments,
+          colors: this.staticColors,
+          images: this.staticImages,
+          materials: data.materials,
+        };
+
+        this.selectedImage = this.product.images[0];
+        this.selectedColor = this.product.colors[0];
+        this.selectedSize = this.product.sizes[0];
+
+      } catch (err) {
+        this.error = err.message || 'Failed to load product';
+        console.error(err);
+      } finally {
+        this.loading = false;
+      }
+    }
+  },
+  mounted() {
+    this.fetchProduct();
   }
 };
 </script>

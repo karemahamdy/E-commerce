@@ -1,11 +1,11 @@
 <template>
-    <h2 class="text-xl font-semibold mb-6">Customer Reviews ({{ productReviews }})</h2>
+    <h2 class="text-xl font-semibold mb-6">Customer Reviews </h2>
     <div class="mb-6">
       <div class="flex items-center mb-2">
         <div class="flex text-yellow-400 mr-2">
           <i class="pi pi-star-fill" v-for="n in 5" :key="n"></i>
         </div>
-        <span class="font-medium">4.8 out of 5</span>
+        <span class="font-medium">{{ reviews_count }} out of 5</span>
       </div>
 
       <div class="space-y-2">
@@ -26,7 +26,7 @@ export default {
   name: "ProductReviews",
   props: {
     ratingCounts: Object,
-    productReviews: Number,
+    reviews_count: Number,
     ratingPercentages: Object
   }
 };
