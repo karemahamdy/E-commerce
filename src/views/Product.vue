@@ -4,21 +4,15 @@
   <CategoryNavbar />
 
   <div class="max-w-6xl mx-auto p-6 grid grid-cols-2 md:grid-cols-2 gap-10" v-if="product">
-    <!-- Static Images -->
-    <ProductImages :images="product.images" :initialImage="selectedImage" />
 
-    <!-- Product Info -->
+    <ProductImages :images="product.images" :initialImage="selectedImage" />
     <ProductDetails :title="product.name" :reviews="product.reviews_count" :price="product.price"
       :colors="product.colors" :sizes="product.sizes" :initialColor="selectedColor" :initialSize="selectedSize" />
-
-    <!-- Description -->
     <ProductDescription :description="product.details" :materials="product.materials" />
-
-    <!-- Reviews + Comments -->
     <div class="col-span-2 bg-white px-8 py-4 rounded-lg shadow">
-      <ProductReviews :productReviews="product.comments" :reviewsCount="product.reviews_count"
+      <ProductReviews :reviews_count="product.reviews_count" :reviewsCount="product.reviews_count"
         :ratingCounts="ratingCounts" :ratingPercentages="ratingPercentages" />
-      <ProductComments />
+      <ProductComments :comments = "product.comments"/>
     </div>
   </div>
 
@@ -109,7 +103,7 @@ export default {
           reviews_count: data.reviews_count || 0,
           sizes: data.sizes,
           details: data.details || '',
-          comments: data.comments ? [data.comments] : [],
+          comments: data.comments,
           colors: this.staticColors,
           images: this.staticImages,
           materials: data.materials,
