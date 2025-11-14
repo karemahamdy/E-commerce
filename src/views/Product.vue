@@ -8,11 +8,12 @@
     <ProductImages :images="product.images" :initialImage="selectedImage" />
     <ProductDetails :title="product.name" :reviews="product.reviews_count" :price="product.price"
       :colors="product.colors" :sizes="product.sizes" :initialColor="selectedColor" :initialSize="selectedSize" />
-    <ProductDescription :description="product.details" :materials="product.materials" />
+    <ProductDescription :description="product.description" :details="product.details"
+      :materials="product.materials" />
     <div class="col-span-2 bg-white px-8 py-4 rounded-lg shadow">
       <ProductReviews :reviews_count="product.reviews_count" :reviewsCount="product.reviews_count"
         :ratingCounts="ratingCounts" :ratingPercentages="ratingPercentages" />
-      <ProductComments :comments = "product.comments"/>
+      <ProductComments :comments="product.comments" />
     </div>
   </div>
 
@@ -105,8 +106,9 @@ export default {
           details: data.details || '',
           comments: data.comments,
           colors: this.staticColors,
-          images: this.staticImages,
+          images: data.image_urls || this.staticImages,
           materials: data.materials,
+          description: data.description || ''
         };
 
         this.selectedImage = this.product.images[0];
