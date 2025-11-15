@@ -4,7 +4,7 @@
   <CategoryNavbar />
   <div class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-3 lg:grid-cols-3 gap-8">
     <div class="lg:col-span-2">
-      <ShoppingCart :cartItems="cartItems" @increaseQty="increaseQty" @decreaseQty="decreaseQty"
+      <ShoppingCart  :cartItems="cartItems" @increaseQty="increaseQty" @decreaseQty="decreaseQty"
         @removeItem="removeItem" />
     </div>
     <div class="mt-4">

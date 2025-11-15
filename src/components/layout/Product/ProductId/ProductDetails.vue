@@ -31,12 +31,20 @@
         </button>
       </div>
     </div>
+    <div class="flex flex- items-start gap-4 mt-4">
+      <button @click="handleAddToCart"
+        class="w-[50%] bg-black text-white py-2 rounded-xl text-lg font-semibold hover:opacity-90 transition">
+        Add to cart
+      </button>
 
-    <button @click="handleAddToCart"
-      class="w-[50%] bg-black text-white py-2 rounded-xl text-lg font-semibold hover:opacity-90 transition">
-      Add to cart
-    </button>
-
+      <div class="flex items-center justify-center gap-2">
+        <BaseButton label="-" bgColor="bg-[black]" textColor="text-white" borderColor="border-[black]"
+          rounded="rounded-full" padding="" textSize="text-base" @click="decreaseQty" />
+        <h6>{{ quantity }}</h6>
+        <BaseButton label="+" bgColor="bg-[black]" textColor="text-white" borderColor="border-[sienna]"
+          rounded="rounded-full" padding="" textSize="text-base" @click="increaseQty" />
+      </div>
+    </div>
     <p class="text-sm text-gray-500 text-left mt-2">
       Free delivery on orders over $30.00
     </p>
@@ -47,6 +55,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "../../../../store/cartStore";
+import BaseButton from "../../../BaseButton.vue";
 
 // props
 const props = defineProps({
@@ -59,7 +68,7 @@ const props = defineProps({
   initialSize: String,
   productId: Number
 });
-
+let quantity = ref(1);
 // stores
 const cartStore = useCartStore();
 const router = useRouter();
@@ -74,10 +83,34 @@ function handleAddToCart() {
     price: props.price,
     color: selectedColor.value,
     size: selectedSize.value,
-    quantity: 1
+    quantity: quantity.value
   });
-  console.log("Sending to cart:", props.productId);
+  router.push("/cart");
+}
+  function increaseQty() {
+    quantity.value++;
+  }
 
-  // router.push("/cart");
+function decreaseQty(index) {
+  if (  quantity.value > 1) {
+      quantity.value--
+  }
 }
 </script>
+<style scoped>
+.p-button {
+  color: #ffffff;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: none;
+  outline-color: transparent;
+}
+
+.p-button:focus {
+  border: 1px solid transparent !important;
+  outline-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+</style>

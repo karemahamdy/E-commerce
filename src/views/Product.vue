@@ -108,7 +108,8 @@ export default {
           colors: this.staticColors,
           images: data.image_urls || this.staticImages,
           materials: data.materials,
-          description: data.description || ''
+          description: data.description || '',
+          
         };
 
         this.selectedImage = this.product.images[0];
