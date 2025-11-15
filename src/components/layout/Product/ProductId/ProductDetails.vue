@@ -85,6 +85,7 @@ function handleAddToCart() {
     size: selectedSize.value,
     quantity: quantity.value
   });
+  localStorage.setItem('cartCount', this.count);
   router.push("/cart");
 }
   function increaseQty() {

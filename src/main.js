@@ -13,6 +13,7 @@ const app = createApp(App)
 app.use(PrimeVue, { ripple: true })
 app.use(router)
 const pinia = createPinia();
+
 app.use(pinia);
 app.component('Button', Button)
 app.mount('#app')

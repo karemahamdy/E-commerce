@@ -57,6 +57,7 @@ export const useCartStore = defineStore('cart', {
       }
 
       this.count++;
+      // localStorage.setItem("cartCount", this.count);
       this.items.push(data[0]);
 
       console.log("Inserted:", data);
