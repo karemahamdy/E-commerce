@@ -8,7 +8,6 @@
       <ShoppingCart :cartItems="cart.items" @increaseQty="increaseQty" @decreaseQty="decreaseQty"
         @removeItem="removeItem" />
     </div>
-
     <div class="mt-4">
       <CartSummary :subtotal="cart.total" @applyCoupon="applyCoupon" />
     </div>
@@ -18,37 +17,28 @@
 </template>
 
 <script>
-// import { useCartStore } from '../stores/cart.js'
 import { useCartStore } from '../store/cartStore'
 import { onMounted } from 'vue'
-
-import Button from 'primevue/button'
-import InputText from 'primevue/inputtext'
 import TopHeader from '../components/TopHeader.vue'
 import MainNavbar from '../components/MainNavbar.vue'
 import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue'
 import CartSummary from '../components/layout/Cart/CartSummary.vue';
 import ShoppingCart from '../components/layout/Cart/ShoppingCart.vue';
 import Footer from '../components/Footer.vue'
-import BaseButton from '../components/BaseButton.vue'
 
 export default {
   components: {
-    Button,
-    InputText,
     TopHeader,
     MainNavbar,
     CategoryNavbar,
     CartSummary,
     ShoppingCart,
-    BaseButton,
     Footer
   },
 
   setup() {
     const cart = useCartStore()
-    const userId = "test-user-123"   // later → auth user
-
+    const userId = "test-user-123"
     onMounted(() => {
       cart.fetchCart(userId)
     })

@@ -1,7 +1,5 @@
-// stores/cart.js
 import { defineStore } from 'pinia'
 import { supabase } from '../lib/supabase.js';
-
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
@@ -11,7 +9,7 @@ export const useCartStore = defineStore('cart', {
   }),
   getters: {
     total(state) {
-      let sum = state.items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+      let sum = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
       if (state.coupon) {
         if (state.coupon.discount_type === 'percentage') {
           sum = sum * (1 - state.coupon.discount_value / 100)
@@ -32,13 +30,7 @@ export const useCartStore = defineStore('cart', {
         .from('cart_items')
         .select('id, product_id, quantity, product:products(*)')
         .eq('user_id', userId)
-      // if (!error) this.items = data
-      if (error) {
-        console.log("Fetch cart error:", error)
-        return
-      }
-
-      // ⭐ تحويل البيانات للشكل اللي الكومبوننت متوقعه
+      if (error) return
       this.items = data.map(item => ({
         id: item.id,
         product_id: item.product_id,
@@ -52,13 +44,11 @@ export const useCartStore = defineStore('cart', {
     },
     
     async addItem(productId, item) {
-      console.log("Adding to cart store:", productId, item);
-
       const { data, error } = await supabase
         .from("cart_items")
         .insert([
           {
-            user_id: "test-user-123",  // later replace with auth user
+            user_id: "test-user-123",
             product_id: productId,
             name: item.name,
             price: item.price,
@@ -72,14 +62,10 @@ export const useCartStore = defineStore('cart', {
         console.error("Supabase insert error:", error);
         return;
       }
-
       this.count++;
-      // localStorage.setItem("cartCount", this.count);
-      this.items.push(data[0]);
+      this.items.push(data[0]); 
+    },
 
-      console.log("Inserted:", data);
-    }
-  ,
     async updateQuantity(userId, productId, quantity) {
       const { data, error } = await supabase
         .from('cart_items')
@@ -93,6 +79,7 @@ export const useCartStore = defineStore('cart', {
         if (idx !== -1) this.items[idx] = data
       }
     },
+
     async removeItem(userId, productId) {
       const { error } = await supabase
         .from('cart_items')
