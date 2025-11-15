@@ -1,9 +1,11 @@
 // stores/cart.js
 import { defineStore } from 'pinia'
-import { supabase } from '@/supabase'
+import { supabase } from '../lib/supabase.js';
+
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
+    count: 0,
     items: [],       
     coupon: null,   
   }),
@@ -32,20 +34,34 @@ export const useCartStore = defineStore('cart', {
         .eq('user_id', userId)
       if (!error) this.items = data
     },
+    async addItem(productId, item) {
+      console.log("Adding to cart store:", productId, item);
 
-    async addItem(userId, product, quantity = 1) {
-      const existing = this.items.find(i => i.product_id === product.id)
-      if (existing) {
-        await this.updateQuantity(userId, product.id, existing.quantity + quantity)
-      } else {
-        const { data, error } = await supabase
-          .from('cart_items')
-          .insert({ user_id: userId, product_id: product.id, quantity })
-          .select('id, product_id, quantity, product:products(*)')
-          .single()
-        if (!error) this.items.push(data)
+      const { data, error } = await supabase
+        .from("cart_items")
+        .insert([
+          {
+            user_id: "test-user-123",  // later replace with auth user
+            product_id: productId,
+            name: item.name,
+            price: item.price,
+            color: item.color,
+            size: item.size,
+            quantity: item.quantity
+          }
+        ]);
+
+      if (error) {
+        console.error("Supabase insert error:", error);
+        return;
       }
-    },
+
+      this.count++;
+      this.items.push(data[0]);
+
+      console.log("Inserted:", data);
+    }
+  ,
     async updateQuantity(userId, productId, quantity) {
       const { data, error } = await supabase
         .from('cart_items')

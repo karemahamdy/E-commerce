@@ -17,8 +17,7 @@
       <div class="flex gap-2">
         <div v-for="(color, index) in colors" :key="index" class="w-10 h-10 rounded-full border cursor-pointer"
           :style="{ backgroundColor: color }" :class="selectedColor === color ? 'ring-2 ring-black' : 'border-gray-300'"
-          @click="selectedColor = color">
-        </div>
+          @click="selectedColor = color"></div>
       </div>
     </div>
 
@@ -32,35 +31,53 @@
         </button>
       </div>
     </div>
-    <router-link to="/cart">
-      <button class="w-[50%] bg-black text-white py-2 rounded-xl text-lg font-semibold hover:opacity-90 transition">
-        Add to cart
-      </button>
-      </router-link>
 
-      <p class="text-sm text-gray-500 text-left mt-2">
-        Free delivery on orders over $30.00
-      </p>
+    <button @click="handleAddToCart"
+      class="w-[50%] bg-black text-white py-2 rounded-xl text-lg font-semibold hover:opacity-90 transition">
+      Add to cart
+    </button>
+
+    <p class="text-sm text-gray-500 text-left mt-2">
+      Free delivery on orders over $30.00
+    </p>
   </div>
 </template>
 
-<script>
-export default {
-  name: "ProductDetails",
-  props: {
-    title: String,
-    reviews: Number,
-    price: Number,
-    colors: Array,
-    sizes: Array,
-    initialColor: String,
-    initialSize: String,
-  },
-  data() {
-    return {
-      selectedColor: this.initialColor || (this.colors.length ? this.colors[0] : null),
-      selectedSize: this.initialSize || (this.sizes.length ? this.sizes[0] : null),
-    };
-  },
-};
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useCartStore } from "../../../../store/cartStore";
+
+// props
+const props = defineProps({
+  title: String,
+  reviews: Number,
+  price: Number,
+  colors: Array,
+  sizes: Array,
+  initialColor: String,
+  initialSize: String,
+  productId: Number
+});
+
+// stores
+const cartStore = useCartStore();
+const router = useRouter();
+
+// state
+const selectedColor = ref(props.initialColor ?? props.colors?.[0] ?? null);
+const selectedSize = ref(props.initialSize ?? props.sizes?.[0] ?? null);
+
+function handleAddToCart() {
+  cartStore.addItem(props.productId, {
+    name: props.title,
+    price: props.price,
+    color: selectedColor.value,
+    size: selectedSize.value,
+    quantity: 1
+  });
+  console.log("Sending to cart:", props.productId);
+
+  // router.push("/cart");
+}
 </script>

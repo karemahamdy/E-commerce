@@ -7,9 +7,9 @@
 
     <ProductImages :images="product.images" :initialImage="selectedImage" />
     <ProductDetails :title="product.name" :reviews="product.reviews_count" :price="product.price"
-      :colors="product.colors" :sizes="product.sizes" :initialColor="selectedColor" :initialSize="selectedSize" />
-    <ProductDescription :description="product.description" :details="product.details"
-      :materials="product.materials" />
+      :productId="product.id" :colors="product.colors" :sizes="product.sizes" :initialColor="selectedColor"
+      :initialSize="selectedSize" />
+    <ProductDescription :description="product.description" :details="product.details" :materials="product.materials" />
     <div class="col-span-2 bg-white px-8 py-4 rounded-lg shadow">
       <ProductReviews :reviews_count="product.reviews_count" :reviewsCount="product.reviews_count"
         :ratingCounts="ratingCounts" :ratingPercentages="ratingPercentages" />

@@ -7,9 +7,12 @@ import 'primevue/resources/themes/tailwind-light/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import router from './router'
+import { createPinia } from 'pinia'
 
 const app = createApp(App)
 app.use(PrimeVue, { ripple: true })
 app.use(router)
+const pinia = createPinia();
+app.use(pinia);
 app.component('Button', Button)
 app.mount('#app')

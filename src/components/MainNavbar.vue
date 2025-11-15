@@ -1,8 +1,8 @@
 <template>
   <nav class="bg-black py-4 border-b border-gray-200">
     <div class="container mx-auto px-4 flex items-center justify-between">
-      <Logo/>
-      <SearchBar/>
+      <Logo />
+      <SearchBar />
       <!-- User Controls -->
       <div class="flex items-center">
         <button class="flex items-center text-[#c0a27e] hover:text-[#c0a27e] mr-6">
@@ -21,20 +21,25 @@
           </svg>
           <span class="ml-1 text-gray-200">Cart</span>
         </button>
+        <router-link to="/cart" class="relative">
+          <i class="fa fa-shopping-cart"></i>
+
+          <span v-if="cartStore.count > 0"
+            class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
+            {{ cartStore.count }}
+          </span>
+        </router-link>
       </div>
     </div>
   </nav>
 </template>
 
-<script>
+<script setup>
+import { useRouter } from 'vue-router';
+import { useCartStore } from '../store/cartStore';
 import Logo from './Logo.vue';
 import SearchBar from './SearchBar.vue';
 
-export default {
-  name: 'MainNavbar',
-  components : { 
-    SearchBar,
-    Logo
-  }
-}
+const router = useRouter();
+const cartStore = useCartStore();
 </script>
