@@ -32,8 +32,25 @@ export const useCartStore = defineStore('cart', {
         .from('cart_items')
         .select('id, product_id, quantity, product:products(*)')
         .eq('user_id', userId)
-      if (!error) this.items = data
+      // if (!error) this.items = data
+      if (error) {
+        console.log("Fetch cart error:", error)
+        return
+      }
+
+      // ⭐ تحويل البيانات للشكل اللي الكومبوننت متوقعه
+      this.items = data.map(item => ({
+        id: item.id,
+        product_id: item.product_id,
+        quantity: item.quantity,
+        name: item.product.name,
+        image: item.product.image_url,
+        price: item.product.price,
+        originalPrice: item.product.price,
+      }))
+
     },
+    
     async addItem(productId, item) {
       console.log("Adding to cart store:", productId, item);
 
