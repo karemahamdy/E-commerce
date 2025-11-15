@@ -13,7 +13,7 @@
       'transition',
         $attrs.class
     ]"
-    @click="handleClick"
+    
      v-bind="$attrs"
   >
     {{ label }}
@@ -64,10 +64,6 @@ export default {
       return `${this.bgColor} ${this.textColor} ${this.hoverBgColor}  ${this.padding} ${this.rounded} ${this.textSize} ${this.hoverTextColor} ${this.borderColor}`
     }
   },
-   methods: {
-    handleClick(event) {
-      this.$emit('click', event)
-    }
-}
+  
 }
 </script>

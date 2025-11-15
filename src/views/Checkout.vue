@@ -1,5 +1,5 @@
 <template>
-    <TopHeader />
+  <TopHeader />
   <MainNavbar />
   <CategoryNavbar />
 
@@ -10,17 +10,17 @@
         <p class="text-sm text-gray-700"><i class="pi pi-tag mr-2"></i>donot forget your coupon</p>
       </div>
       <h2 class="text-2xl font-semibold">Billing Details</h2>
-      <BillingDetails/>
+      <BillingDetails />
     </div>
 
     <div class="bg-gray-50 p-6 rounded-lg shadow space-y-4" style="height: fit-content;">
-    <OrderSummary/>
-    <PaymentWay/>
+      <OrderSummary :cartItems="cart.items" />
+      <PaymentWay />
       <Button label="Place Order" class="w-full mt-4" style="background-color: black; border-color: black;" />
     </div>
 
   </div>
-    <Footer />
+  <Footer />
 </template>
 
 <script>
@@ -32,10 +32,12 @@ import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue'
 import BillingDetails from '../components/layout/Checkout/BillingDetails.vue'
 import PaymentWay from '../components/layout/Checkout/PaymentWay.vue'
 import OrderSummary from '../components/layout/Checkout/OrderSummary.vue'
+import { onMounted } from 'vue'
+import { useCartStore } from '../store/cartStore'
 
 export default {
   components: {
-  PaymentWay,
+    PaymentWay,
     Button,
     Footer,
     CategoryNavbar,
@@ -44,5 +46,14 @@ export default {
     TopHeader,
     OrderSummary
   },
+  setup() {
+    const cart = useCartStore()
+    const userId = "test-user-123"   // later → auth user
+
+    onMounted(() => {
+      cart.fetchCart(userId)
+    })
+    return { cart }
+  }
 }
 </script>

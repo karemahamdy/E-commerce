@@ -17,8 +17,7 @@
       <div class="flex gap-2">
         <div v-for="(color, index) in colors" :key="index" class="w-10 h-10 rounded-full border cursor-pointer"
           :style="{ backgroundColor: color }" :class="selectedColor === color ? 'ring-2 ring-black' : 'border-gray-300'"
-          @click="selectedColor = color">
-        </div>
+          @click="selectedColor = color"></div>
       </div>
     </div>
 
@@ -32,35 +31,87 @@
         </button>
       </div>
     </div>
-    <router-link to="/cart">
-      <button class="w-[50%] bg-black text-white py-2 rounded-xl text-lg font-semibold hover:opacity-90 transition">
+    <div class="flex flex- items-start gap-4 mt-4">
+      <button @click="handleAddToCart"
+        class="w-[50%] bg-black text-white py-2 rounded-xl text-lg font-semibold hover:opacity-90 transition">
         Add to cart
       </button>
-      </router-link>
 
-      <p class="text-sm text-gray-500 text-left mt-2">
-        Free delivery on orders over $30.00
-      </p>
+      <div class="flex items-center justify-center gap-2">
+        <BaseButton label="-" bgColor="bg-[black]" textColor="text-white" borderColor="border-[black]"
+          rounded="rounded-full" padding="" textSize="text-base" @click="decreaseQty" />
+        <h6>{{ quantity }}</h6>
+        <BaseButton label="+" bgColor="bg-[black]" textColor="text-white" borderColor="border-[sienna]"
+          rounded="rounded-full" padding="" textSize="text-base" @click="increaseQty" />
+      </div>
+    </div>
+    <p class="text-sm text-gray-500 text-left mt-2">
+      Free delivery on orders over $30.00
+    </p>
   </div>
 </template>
 
-<script>
-export default {
-  name: "ProductDetails",
-  props: {
-    title: String,
-    reviews: Number,
-    price: Number,
-    colors: Array,
-    sizes: Array,
-    initialColor: String,
-    initialSize: String,
-  },
-  data() {
-    return {
-      selectedColor: this.initialColor || (this.colors.length ? this.colors[0] : null),
-      selectedSize: this.initialSize || (this.sizes.length ? this.sizes[0] : null),
-    };
-  },
-};
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useCartStore } from "../../../../store/cartStore";
+import BaseButton from "../../../BaseButton.vue";
+
+// props
+const props = defineProps({
+  title: String,
+  reviews: Number,
+  price: Number,
+  colors: Array,
+  sizes: Array,
+  initialColor: String,
+  initialSize: String,
+  productId: Number
+});
+let quantity = ref(1);
+// stores
+const cartStore = useCartStore();
+const router = useRouter();
+
+// state
+const selectedColor = ref(props.initialColor ?? props.colors?.[0] ?? null);
+const selectedSize = ref(props.initialSize ?? props.sizes?.[0] ?? null);
+
+function handleAddToCart() {
+  cartStore.addItem(props.productId, {
+    name: props.title,
+    price: props.price,
+    color: selectedColor.value,
+    size: selectedSize.value,
+    quantity: quantity.value
+  });
+  localStorage.setItem('cartCount', this.count);
+  router.push("/cart");
+}
+  function increaseQty() {
+    quantity.value++;
+  }
+
+function decreaseQty(index) {
+  if (  quantity.value > 1) {
+      quantity.value--
+  }
+}
 </script>
+<style scoped>
+.p-button {
+  color: #ffffff;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: none;
+  outline-color: transparent;
+}
+
+.p-button:focus {
+  border: 1px solid transparent !important;
+  outline-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+</style>

@@ -22,8 +22,8 @@
               rounded="rounded" padding="" textSize="text-base" />
           </router-link>
           <router-link to="/cart">
-            <BaseButton label="add to cart" bgColor="bg-[sienna]" textColor="text-white" borderColor="border-[sienna]"
-              rounded="rounded" padding="" textSize="text-base" />
+            <BaseButton @click="handleAddToCart" label="add to cart" bgColor="bg-[sienna]" textColor="text-white"
+              borderColor="border-[sienna]" rounded="rounded" padding="" textSize="text-base" />
           </router-link>
         </div>
       </div>
@@ -34,28 +34,50 @@
   </main>
 </template>
 
-<script>
+<script setup>
 import Paginator from 'primevue/paginator';
 import BaseButton from '../../BaseButton.vue';
-export default {
-  components: { Paginator, BaseButton },
-  props: {
-    products: Array,
-    totalRecords: Number
-  },
-  emits: ['page', 'update:first'],
-  computed: {
-    first: {
-      get() {
-        return this.$attrs.first;
-      },
-      set(value) {
-        this.$emit('update:first', value);
-      }
-    }
-  }
+import { useRouter } from "vue-router";
+import { useCartStore } from "../../../store/cartStore";
+import { defineProps, defineEmits } from "vue";
+import { computed } from "vue";
+
+const props = defineProps({
+  products: Array,
+  totalRecords: Number,
+  first: Number
+});
+
+const emit = defineEmits(["page", "update:first"]);
+
+const cartStore = useCartStore();
+const router = useRouter();
+
+function handleAddToCart(product) {
+  cartStore.addItem(product.id, {
+    name: product.name,
+    price: product.price,
+    color: product.colors?.[0] ?? null,
+    size: product.sizes?.[0] ?? null,
+    quantity: 1
+  });
+
+  router.push("/cart");
 }
+ const first = computed({
+    get() {
+    return props.first;
+    },
+    set(value) {
+      emit('update:first', value);
+    }
+ })
+// function handlePage(event) {
+//   emit("page", event);
+
+// }
 </script>
+
 
 <style scoped>
 .pi-star,

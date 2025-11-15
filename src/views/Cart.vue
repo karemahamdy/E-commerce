@@ -2,19 +2,26 @@
   <TopHeader />
   <MainNavbar />
   <CategoryNavbar />
+
   <div class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-3 lg:grid-cols-3 gap-8">
     <div class="lg:col-span-2">
-      <ShoppingCart :cartItems="cartItems" @increaseQty="increaseQty" @decreaseQty="decreaseQty"
+      <ShoppingCart :cartItems="cart.items" @increaseQty="increaseQty" @decreaseQty="decreaseQty"
         @removeItem="removeItem" />
     </div>
+
     <div class="mt-4">
-      <CartSummary :subtotal="subtotal" @applyCoupon="applyCoupon" />
+      <CartSummary :subtotal="cart.total" @applyCoupon="applyCoupon" />
     </div>
   </div>
+
   <Footer />
 </template>
 
 <script>
+// import { useCartStore } from '../stores/cart.js'
+import { useCartStore } from '../store/cartStore'
+import { onMounted } from 'vue'
+
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import TopHeader from '../components/TopHeader.vue'
@@ -37,61 +44,38 @@ export default {
     BaseButton,
     Footer
   },
-  data() {
-    return {
-      coupon: '',
-      cartItems: [
-        {
-          name: 'T-shirt Contrast Pocket',
-          image: '../../public/assets/images/blog-01.jpg.webp',
-          originalPrice: 98.49,
-          price: 30.0,
-          quantity: 1
-        },
-        {
-          name: 'Diagonal Textured Cap',
-          image: '../../public/assets/images/blog-01.jpg.webp',
-          originalPrice: 98.49,
-          price: 32.5,
-          quantity: 1
-        },
-        {
-          name: 'Basic Flowing Scarf',
-          image: '../../public/assets/images/blog-01.jpg.webp',
-          originalPrice: 98.49,
-          price: 47.0,
-          quantity: 1
-        },
-        {
-          name: 'Basic Flowing Scarf',
-          image: '../../public/assets/images/blog-01.jpg.webp',
-          originalPrice: 98.49,
-          price: 30.0,
-          quantity: 1
-        }
-      ]
+
+  setup() {
+    const cart = useCartStore()
+    const userId = "test-user-123"   // later → auth user
+
+    onMounted(() => {
+      cart.fetchCart(userId)
+    })
+
+    function increaseQty(item) {
+      cart.updateQuantity(userId, item.product_id, item.quantity + 1)
     }
-  },
-  computed: {
-    subtotal() {
-      return this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-    }
-  },
-  methods: {
-    increaseQty(index) {
-      this.cartItems[index].quantity++
-    },
-    decreaseQty(index) {
-      if (this.cartItems[index].quantity > 1) {
-        this.cartItems[index].quantity--
+
+    function decreaseQty(item) {
+      if (item.quantity > 1) {
+        cart.updateQuantity(userId, item.product_id, item.quantity - 1)
       }
-    },
-    removeItem(index) {
-      this.cartItems.splice(index, 1)
     }
+
+    function removeItem(item) {
+      cart.removeItem(userId, item.product_id)
+    }
+
+    function applyCoupon(code) {
+      cart.applyCoupon(code)
+    }
+
+    return { cart, increaseQty, decreaseQty, removeItem, applyCoupon }
   }
 }
 </script>
+
 <style scoped>
 .p-button {
   color: #ffffff;
@@ -101,6 +85,7 @@ export default {
   transition: none;
   outline-color: transparent;
 }
+
 .p-button:focus {
   border: 1px solid transparent !important;
   outline-color: transparent !important;

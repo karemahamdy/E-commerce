@@ -1,0 +1,127 @@
+// stores/cart.js
+import { defineStore } from 'pinia'
+import { supabase } from '../lib/supabase.js';
+
+
+export const useCartStore = defineStore('cart', {
+  state: () => ({
+    count: 0,
+    items: [],       
+    coupon: null,   
+  }),
+  getters: {
+    total(state) {
+      let sum = state.items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+      if (state.coupon) {
+        if (state.coupon.discount_type === 'percentage') {
+          sum = sum * (1 - state.coupon.discount_value / 100)
+        } else if (state.coupon.discount_type === 'fixed') {
+          sum = sum - state.coupon.discount_value
+        }
+      }
+      return sum
+    },
+    itemCount(state) {
+      return state.items.reduce((sum, item) => sum + item.quantity, 0)
+    }
+  },
+  actions: {
+  
+    async fetchCart(userId) {
+      const { data, error } = await supabase
+        .from('cart_items')
+        .select('id, product_id, quantity, product:products(*)')
+        .eq('user_id', userId)
+      // if (!error) this.items = data
+      if (error) {
+        console.log("Fetch cart error:", error)
+        return
+      }
+
+      // ⭐ تحويل البيانات للشكل اللي الكومبوننت متوقعه
+      this.items = data.map(item => ({
+        id: item.id,
+        product_id: item.product_id,
+        quantity: item.quantity,
+        name: item.product.name,
+        image: item.product.image_url,
+        price: item.product.price,
+        originalPrice: item.product.price,
+      }))
+
+    },
+    
+    async addItem(productId, item) {
+      console.log("Adding to cart store:", productId, item);
+
+      const { data, error } = await supabase
+        .from("cart_items")
+        .insert([
+          {
+            user_id: "test-user-123",  // later replace with auth user
+            product_id: productId,
+            name: item.name,
+            price: item.price,
+            color: item.color,
+            size: item.size,
+            quantity: item.quantity
+          }
+        ]);
+
+      if (error) {
+        console.error("Supabase insert error:", error);
+        return;
+      }
+
+      this.count++;
+      // localStorage.setItem("cartCount", this.count);
+      this.items.push(data[0]);
+
+      console.log("Inserted:", data);
+    }
+  ,
+    async updateQuantity(userId, productId, quantity) {
+      const { data, error } = await supabase
+        .from('cart_items')
+        .update({ quantity })
+        .eq('user_id', userId)
+        .eq('product_id', productId)
+        .select('id, product_id, quantity, product:products(*)')
+        .single()
+      if (!error) {
+        const idx = this.items.findIndex(i => i.product_id === productId)
+        if (idx !== -1) this.items[idx] = data
+      }
+    },
+    async removeItem(userId, productId) {
+      const { error } = await supabase
+        .from('cart_items')
+        .delete()
+        .eq('user_id', userId)
+        .eq('product_id', productId)
+      if (!error) {
+        this.items = this.items.filter(i => i.product_id !== productId)
+      }
+    },
+
+    async clearCart(userId) {
+      const { error } = await supabase
+        .from('cart_items')
+        .delete()
+        .eq('user_id', userId)
+      if (!error) this.items = []
+    },
+    
+    async applyCoupon(code) {
+      const { data, error } = await supabase
+        .from('coupons')
+        .select('*')
+        .eq('code', code)
+        .eq('active', true)
+        .gte('expires_at', new Date().toISOString())
+        .single()
+      if (error || !data) throw new Error('Coupon not valid')
+      this.coupon = data
+    }
+  }
+})
