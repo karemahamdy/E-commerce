@@ -109,6 +109,7 @@ export const useCartStore = defineStore('cart', {
         .single()
       if (error || !data) throw new Error('Coupon not valid')
       this.coupon = data
+      
     }
   }
 })

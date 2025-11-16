@@ -9,7 +9,7 @@
         @removeItem="removeItem" />
     </div>
     <div class="mt-4">
-      <CartSummary :subtotal="cart.total" @applyCoupon="applyCoupon" />
+      <CartSummary :subtotal="cart.total" :discount="cart.discount_value" @applyCoupon="applyCoupon" />
     </div>
   </div>
 
