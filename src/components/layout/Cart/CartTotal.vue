@@ -5,6 +5,10 @@
       <span class="text-gray-600">Subtotal</span>
       <span class="text-red-500 font-medium">${{ subtotal.toFixed(2) }}</span>
     </div>
+    <div class="flex justify-between mb-2">
+      <span class="text-gray-600">discount rate</span>
+      <span class="text-green-500 font-medium">${{ discount.toFixed(2) }}%</span>
+    </div>
     <div class="flex justify-between mb-4">
       <span class="text-gray-600 font-medium">Total</span>
       <span class="text-red-600 font-bold text-lg">${{ subtotal.toFixed(2) }}</span>
@@ -20,7 +24,7 @@ import Button from 'primevue/button'
 
 export default {
   components: { Button },
-  props: ['subtotal']
+  props: ['subtotal', 'discount']
 }
 </script>
 
