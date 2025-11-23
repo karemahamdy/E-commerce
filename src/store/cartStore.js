@@ -107,18 +107,31 @@ export const useCartStore = defineStore('cart', {
       if (!error) this.items = []
     },
     
+    // ...existing code...
     async applyCoupon(code) {
-      const { data, error } = await supabase
-        .from('coupons')
-        .select('*')
-        .eq('code', code)
-      
-        .eq('active', true)
-        .gte('expires_at', new Date().toISOString())
-        .single()
-      if (error || !data) throw new Error('Coupon not valid')
-      this.coupon = data
-      
+      try {
+        const { data, error } = await supabase
+          .from('coupons')
+          .select('*')
+          .eq('code', code)
+          .eq('active', true)
+          .gte('expires_at', new Date().toISOString())
+          .single();
+
+        if (error || !data) {
+          this.coupon = null;
+          return false;
+        }
+
+        this.coupon = data;
+        return true;
+      } catch (e) {
+        console.error('applyCoupon error', e);
+        this.coupon = null;
+        return false;
+      }
     }
+    // ...existing code...
+
   }
 })

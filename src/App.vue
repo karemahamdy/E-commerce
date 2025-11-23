@@ -6,9 +6,11 @@
 </template>
 
 <script>
+import Toast from 'primevue/toast';
 import './style.css'
 import './tailwind.css'
 export default {
   name: 'App',
+  components: { Toast }
 }
 </script>

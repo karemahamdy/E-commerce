@@ -10,7 +10,7 @@
 
     <div class="flex justify-between mb-2">
       <span class="text-gray-600">Discount</span>
-      <span class="text-green-500 font-medium">- ${{ formatCurrency(discount) }}</span>
+      <span class="text-green-500 font-medium">-{{ formatCurrency(discount) }}</span>
     </div>
 
     <div class="flex justify-between mb-4 font-semibold">
