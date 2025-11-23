@@ -1,7 +1,8 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-   <router-view />
-    </div>
+    <Toast />
+    <router-view />
+  </div>
 </template>
 
 <script>

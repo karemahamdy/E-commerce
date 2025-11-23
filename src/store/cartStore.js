@@ -8,19 +8,27 @@ export const useCartStore = defineStore('cart', {
     coupon: null,   
   }),
   getters: {
-    total(state) {
-      let sum = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-      if (state.coupon) {
-        if (state.coupon.discount_type === 'percentage') {
-          sum = sum * (1 - state.coupon.discount_value / 100)
-        } else if (state.coupon.discount_type === 'fixed') {
-          sum = sum - state.coupon.discount_value
-        }
+    subtotal(state) {
+      return state.items.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
+    },
+    // discount amount (currency) based on coupon
+    discount_amount(state) {
+      if (!state.coupon) return 0;
+      const subtotal = state.items.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
+      if (state.coupon.discount_type === 'percentage') {
+        return (subtotal * (Number(state.coupon.discount_value) || 0)) / 100;
+      } else if (state.coupon.discount_type === 'fixed') {
+        return Number(state.coupon.discount_value) || 0;
       }
-      return sum
+      return 0;
+    },
+    // total after discount
+    total(state) {
+      const tot = this.subtotal - this.discount_amount;
+      return tot > 0 ? tot : 0;
     },
     itemCount(state) {
-      return state.items.reduce((sum, item) => sum + item.quantity, 0)
+      return state.items.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0)
     }
   },
   actions: {
@@ -104,6 +112,7 @@ export const useCartStore = defineStore('cart', {
         .from('coupons')
         .select('*')
         .eq('code', code)
+      
         .eq('active', true)
         .gte('expires_at', new Date().toISOString())
         .single()
