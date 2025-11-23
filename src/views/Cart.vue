@@ -9,7 +9,7 @@
         @removeItem="removeItem" />
     </div>
     <div class="mt-4">
-      <CartSummary :subtotal="cart.total" :discount="cart.discount_value" @applyCoupon="applyCoupon" />
+      <CartSummary :subtotal="cart.total" :discount="cart.discount_amount" @applyCoupon="applyCoupon" />
     </div>
   </div>
 
@@ -25,7 +25,7 @@ import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue'
 import CartSummary from '../components/layout/Cart/CartSummary.vue';
 import ShoppingCart from '../components/layout/Cart/ShoppingCart.vue';
 import Footer from '../components/Footer.vue'
-
+import { useToast } from 'primevue/usetoast';
 export default {
   components: {
     TopHeader,
@@ -38,6 +38,7 @@ export default {
 
   setup() {
     const cart = useCartStore()
+    const toast = useToast()
     const userId = "test-user-123"
     onMounted(() => {
       cart.fetchCart(userId)
@@ -57,10 +58,14 @@ export default {
       cart.removeItem(userId, item.product_id)
     }
 
-    function applyCoupon(code) {
-      cart.applyCoupon(code)
+    async function applyCoupon(code) {
+      const ok = await cart.applyCoupon(code)
+      if (ok) {
+        toast.add({ severity: 'success', summary: 'Success', detail: 'Coupon applied!', life: 2000 })
+      } else {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon not valid or expired', life: 3000 })
+      }
     }
-
     return { cart, increaseQty, decreaseQty, removeItem, applyCoupon }
   }
 }
