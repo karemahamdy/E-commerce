@@ -3,7 +3,7 @@
   <MainNavbar />
   <CategoryNavbar />
 
-  <div class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-3 lg:grid-cols-3 gap-8">
+  <div class="max-w-6xl mx-auto px-4 py-8 grid sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-8">
     <div class="lg:col-span-2">
       <ShoppingCart :cartItems="cart.items" @increaseQty="increaseQty" @decreaseQty="decreaseQty"
         @removeItem="removeItem" />
