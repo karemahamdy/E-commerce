@@ -3,7 +3,7 @@
   <MainNavbar />
   <CategoryNavbar />
 
-  <div class="max-w-7xl mx-auto p-6 grid grid-cols-3 lg:grid-cols-3 gap-8">
+  <div class="max-w-7xl mx-auto p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
     <div class="lg:col-span-2 space-y-6">
       <div class="border-l-4 border-amber-900 bg-gray-100 p-4">

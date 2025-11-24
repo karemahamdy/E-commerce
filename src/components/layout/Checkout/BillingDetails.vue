@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid lg:grid-cols-1 md:grid-cols-2 sm:grid-cols-2 gap-4">
         <InputText v-model="form.firstName" placeholder="First Name*" />
         <InputText v-model="form.lastName" placeholder="Last Name*" />
         <InputText v-model="form.country" placeholder="Country*" />
