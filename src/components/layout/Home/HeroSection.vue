@@ -9,7 +9,7 @@
       <div class="text-center">
         <h2 class="text-4xl text-white mb-2">New Collection</h2>
         <p class="text-xl text-white mb-6">Beauties</p>
-        <BaseButton label="Add to Cart" bgColor="bg-black" textColor="text-white" hoverBgColor="hover:bg-[#AE9B84]"
+        <BaseButton label="Show More" bgColor="bg-black" textColor="text-white" hoverBgColor="hover:bg-[#AE9B84]"
           rounded="rounded-full" padding="px-8 py-[1rem]" textSize="text-base" to="/product" />
       </div>
     </div>

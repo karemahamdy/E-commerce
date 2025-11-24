@@ -15,7 +15,7 @@
       </div>
     </div>
     <!-- Product Info -->
-    <div class="p-4">
+    <div class="p-4 sm:pb-6 flex flex-col justify-between h-full">
       <div class="text-sm text-gray-500 mb-1">{{ product.category }}</div>
       <h3 class="font-medium text-gray-800 mb-2">{{ product.name }}</h3>
 
@@ -38,11 +38,14 @@
       </div>
 
       <!-- Price and View All -->
-      <div class="flex justify-between items-center">
+      <div class="flex lg:flex-row justify-between  sm:flex-col sm:items-start lg:items-center h-full">
         <div class="font-bold text-lg">${{ product.price.toFixed(2) }}</div>
-        <button class="bg-[#c0a27e] text-white rounded-md px-3 py-1 text-sm hover:bg-[#a98a6b] transition-colors outline-">
-          Add to cart
-        </button>
+        <div>
+
+          <button class="bg-[#c0a27e] text-white rounded-md px-3 py-1 text-sm hover:bg-[#a98a6b] transition-colors outline-">
+            show more
+          </button>
+        </div>
       </div>
     </div>
   </div>
