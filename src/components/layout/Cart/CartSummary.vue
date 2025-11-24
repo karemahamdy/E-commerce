@@ -2,7 +2,7 @@
   <div>
     <h3 class="text-xl font-semibold mb-4">Discount Codes</h3>
     <Coupon @applyCoupon="$emit('applyCoupon', $event)" />
-    <CartTotal :subtotal="subtotal" />
+    <CartTotal :subtotal="subtotal" :discount="discount"/>
   </div>
 </template>
 
@@ -12,6 +12,6 @@ import CartTotal from './CartTotal.vue'
 
 export default {
   components: { Coupon, CartTotal },
-  props: ['subtotal']
+  props: ['subtotal', 'discount']
 }
 </script>
