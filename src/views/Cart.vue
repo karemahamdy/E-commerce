@@ -13,7 +13,7 @@
       <ShoppingCart :cartItems="cart.items" @increaseQty="increaseQty" @decreaseQty="decreaseQty"
         @removeItem="removeItem" />
     </div>
-    <div class="mt-4" v-if="!cart.loading">
+    <div class="mt-4" v-if="!cart.loading && cart.items.length">
       <CartSummary :subtotal="cart.total" :discount="cart.discount_amount" @applyCoupon="applyCoupon" />
     </div>
   </div>
@@ -45,8 +45,13 @@ import { useToast } from 'primevue/usetoast';
       }
     }
 
-    function removeItem(item) {
-      cart.removeItem(userId, item.product_id)
+    async function removeItem(productId) {
+      try {
+        await cart.removeItem(userId, productId)
+        toast.add({ severity: 'success', summary: 'Removed', detail: 'Item removed from cart', life: 1500 })
+      } catch (e) {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to remove item', life: 2000 })
+      }
     }
 
     async function applyCoupon(code) {

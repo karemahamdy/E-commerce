@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="w-24 text-right font-semibold">${{ (item.price * item.quantity).toFixed(2) }}</div>
-      <Button icon="pi pi-times" text @click="$emit('removeItem', index)" style="color: black !important;" />
+      <Button icon="pi pi-times" text @click="$emit('removeItem', item.product_id)" style="color: black !important;" />
     </div>
     <div class="flex justify-between mt-6">
       <BaseButton label="Continue Shopping" bgColor="" textColor="text-[sienna]" borderColor="border-[sienna]"

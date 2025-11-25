@@ -125,10 +125,11 @@ export const useCartStore = defineStore('cart', {
       if (!error) {
         this.items = this.items.filter(i => i.product_id !== productId)
         this.loading = false;
-        return;
+        return true;
       }
       this.error = error.message || 'Failed to remove item';
       this.loading = false;
+      throw new Error(this.error);
     },
 
     async clearCart(userId) {
