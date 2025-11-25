@@ -13,30 +13,23 @@
       </div>
 </template>
 
-<script>
+<script setup>
+import { reactive } from 'vue'
 import InputText from 'primevue/inputtext'
-export default {
-  name: 'BillingDetails',
-    components: {
-    InputText,
-  },
-  data() {
-    return {
-      form: {
-        firstName: '',
-        lastName: '',
-        country: '',
-        address1: '',
-        address2: '',
-        city: '',
-        state: '',
-        zip: '',
-        phone: '',
-        email: '',
-        createAccount: false,
-        payment: null
-      }
-    }
-  }
-}
+
+const form = reactive({
+  firstName: '',
+  lastName: '',
+  country: '',
+  address1: '',
+  address2: '',
+  city: '',
+  state: '',
+  zip: '',
+  phone: '',
+  email: '',
+  createAccount: false,
+  payment: null
+})
 </script>
+
