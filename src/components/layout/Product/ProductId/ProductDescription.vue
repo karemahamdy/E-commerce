@@ -19,13 +19,8 @@
 
 </template>
 
-<script>
-export default {
-  name: "ProductDescription",
-  props: {
-    description: String,
+<script setup>  
+  const props = defineProps({ description: String,
     materials: String,
-    details: String,
-  }
-};
+    details: String,})
 </script>

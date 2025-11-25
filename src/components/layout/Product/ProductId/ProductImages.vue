@@ -12,29 +12,25 @@
     </div>
   </div>
 </template>
+ 
+<script setup>
+import { ref } from 'vue'
 
-<script>
-export default {
-  name: "ProductImages",
-  props: {
-    images: {
-      type: Array,
-      required: true,
-    },
-    initialImage: {
-      type: String,
-      required: true,
-    },
+const props = defineProps({
+  images: {
+    type: Array,
+    required: true,
   },
-  data() {
-    return {
-      selectedImage: this.initialImage,
-    };
-  },
-  methods: {
-    selectImage(img) {
-      this.selectedImage = img;
-    },
-  },
-};
+  initialImage: {
+    type: String,
+    required: true,
+  }
+})
+
+const selectedImage = ref(props.initialImage)
+
+function selectImage(img) {
+  selectedImage.value = img
+}
 </script>
+
