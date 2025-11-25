@@ -1,9 +1,9 @@
 <template>
   <nav class="bg-black py-4 border-b border-gray-800">
-    <div class="container mx-auto px-4 flex items-center justify-between">
+    <div class="container mx px-4 flex items-center justify-between">
       <Logo />
        <CategoryNavbar/>
-      <div class="flex items-center">
+      <div class="flex items-center mx-[40px]">
         <button class="flex items-center text-[#c0a27e] hover:text-[#c0a27e] mr-6">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
