@@ -41,8 +41,6 @@ import { useRouter } from 'vue-router';
 import { useCartStore } from '../store/cartStore';
 import Logo from './Logo.vue';
 import CategoryNavbar from './layout/Home/CategoryNavbar.vue';
-
-
 const router = useRouter();
 const cartStore = useCartStore();
 </script>

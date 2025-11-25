@@ -10,29 +10,21 @@
   </div>
 </template>
 
-<script>
-import CategoryButton from '../../CategoryButton.vue';
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import CategoryButton from '../../CategoryButton.vue'
 import navLinks from '../../../data/links'
-export default {
 
-  name: 'CategoryNavbar',
-  components: {
-    CategoryButton
-  },
-  data() {
-    return {
-      currentCategory: 0,
-      navLinks
-    }
-  },
-  methods: {
-    navigateToCategory(index) {
-      this.currentCategory = index;
-      this.$router.push(this.navLinks[index].route)
-    }
-  }
+const currentCategory = ref(0)
+const router = useRouter()
+
+function navigateToCategory(index) {
+  currentCategory.value = index
+  router.push(navLinks[index].route)
 }
 </script>
+
 
 <style scoped>
 .hide-scrollbar {

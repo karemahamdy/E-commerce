@@ -57,8 +57,7 @@ import { useToast } from 'primevue/usetoast';
         toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon not valid or expired', life: 3000 })
       }
     }
-    // return { cart, increaseQty, decreaseQty, removeItem, applyCoupon }
-  
+    
 </script>
 
 <style scoped>

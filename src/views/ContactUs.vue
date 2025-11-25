@@ -1,7 +1,4 @@
 <template>
-        <TopHeader/>
-  <MainNavbar />
-  <CategoryNavbar />
   <div class="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 py-12">
     <div class="max-w-2xl w-full bg-white rounded-lg shadow p-8">
       <h1 class="text-3xl font-bold text-[#9e621a] mb-6 text-center">Contact Us</h1>
@@ -27,22 +24,7 @@
       </div>
     </div>
   </div>
-  <Footer/>
 </template>
 
-<script>
-import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue';
-import MainNavbar from '../components/MainNavbar.vue';
-import TopHeader from '../components/TopHeader.vue';
-import Footer from '../components/Footer.vue';
-export default {
-  name: 'ContactUs',
-  components: {
-    TopHeader,
-    MainNavbar,
-    CategoryNavbar,
-    Footer
-  }
-
-}
+<script setup>
 </script>

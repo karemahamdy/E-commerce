@@ -15,7 +15,7 @@ const routes = [
   { path: '/product', name: 'Products', component: Products },
   { path: '/product/:id', name: 'Product', component: Product, props: true },
   {path: '/about', name: 'About', component: About},
-  {path: '/contact-us', name: 'ContactUs', component: ContactUs},
+  {path: '/contact', name: 'ContactUs', component: ContactUs},
   { path: '/cart', name: 'Cart', component: Cart },
   { path: '/checkout', name: 'Checkout', component: Checkout },
   { path: '/login', name: 'login', component: Login },

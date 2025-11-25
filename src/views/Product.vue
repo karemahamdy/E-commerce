@@ -11,9 +11,9 @@
       <ProductComments :comments="product.comments" />
     </div>
   </div>
-
-  <div v-else class="text-center py-10"><Loading overlay text="Loading product..." />
-</div>
+<div v-else class="bg-white/60 flex items-center justify-center mt-50 mb-50">
+      <Loading overlay text="Loading product..." />
+    </div>
 </template>
 
 <script>
@@ -37,7 +37,6 @@ export default {
       loading: false,
       error: null,
       staticColors: ['#ffffff', '#e5e5e5', '#000000'],
-        // colors: ['#ffffff', '#e5e5e5', '#000000'],
         sizes: ["40.5", "41", "42", "43", "43.5", "44", "44.5", "45", "46"],
       staticImages: [
         "../../public/assets/images/bag1.avif",
