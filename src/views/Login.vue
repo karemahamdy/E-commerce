@@ -41,20 +41,20 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { defineComponent } from 'vue';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 
-export default defineComponent({
-  name: 'Login',
-  components: { Button, InputText, Password },
-  data() {
-    return {
-      email: '',
-      password: '',
-    };
-  },
-});
+// export default defineComponent({
+  // name: 'Login',
+  // components: { Button, InputText, Password },
+  // data() {
+    // return {
+      let email = '';
+      let password =  '';
+    // };
+  // },
+// });
 </script>
