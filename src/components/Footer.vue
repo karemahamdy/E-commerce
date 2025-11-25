@@ -59,15 +59,8 @@
   </footer>
 </template>
 
-<script>
-
+<script setup>
 import  Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Logo from './Logo.vue';
-
-export default {
-    components : { 
-    Logo
-  }
-}
 </script>

@@ -51,14 +51,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ProductCard',
-  props: {
+<script setup>
+ const props = defineProps({     
     product: {
       type: Object,
       required: true
     }
-  }
-}
+  })
 </script>

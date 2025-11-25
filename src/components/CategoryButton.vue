@@ -12,22 +12,14 @@
 
 </template>
 
-<script>
-export default {
-  name: 'CategoryButton',
-  props: {
-    label: {
-      type: String,
-      required: true
-    },
-    hasDropdown: {
-      type: Boolean,
-      default: false
-    },
-    isActive: {
-      type: Boolean,
-      default: false
-    }
-  }
-}
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+
+const props = defineProps({
+  label: { type: String, required: true },
+  hasDropdown: { type: Boolean, default: false },
+  isActive: { type: Boolean, default: false }
+})
+
+const emit = defineEmits(['click'])
 </script>

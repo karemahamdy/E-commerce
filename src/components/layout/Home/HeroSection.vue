@@ -16,26 +16,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import BaseButton from '../../BaseButton.vue';
-
-export default {
-  name: "HeroSection",
-  props: {
-    src: String,
-    poster: String,
-    buttonText: {
-      type: String,
-      default: "Shop Now"
-    }
-  },
-  components: { BaseButton },
-  methods: {
-    handleClick() {
-      alert("Shop Now clicked!");
-    }
+const props = defineProps({
+  src: String,
+  poster: String,
+  buttonText: {
+    type: String,
+    default: "Shop Now"
   }
-};
+})
 </script>
 
 <style scoped></style>

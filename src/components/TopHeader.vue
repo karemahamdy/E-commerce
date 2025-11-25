@@ -37,8 +37,5 @@
   </header>
 </template>
 
-<script>
-export default {
-  name: 'TopHeader'
-}
+<script setup>
 </script>

@@ -12,12 +12,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "FeaturesSection",
-  data() {
-    return {
-      features: [
+<script setup>
+       const features = [
         {
           icon: "../../public/assets/images/Button (1).png",
           title: "Reliable Shipping",
@@ -36,8 +32,5 @@ export default {
           description:
             "Here at Green Society, we take pride in the quality of our products and service. Our prices are set to ensure you receive your medication at a reasonable price and safely.",
         },
-      ],
-    };
-  },
-};
+      ];
 </script>
