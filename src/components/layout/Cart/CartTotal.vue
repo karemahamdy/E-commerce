@@ -24,31 +24,28 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Button from 'primevue/button'
+import { computed } from 'vue'
 
-export default {
-  components: { Button },
-  props: {
-    subtotal: { type: Number, default: 0 },
-    discount: { type: Number, default: 0 }, 
-    total: { type: Number, default: null }   
-  },
-  computed: {
-    computedTotal() {
-      if (this.total !== null && !isNaN(this.total)) return Number(this.total);
-      const s = Number(this.subtotal || 0);
-      const d = Number(this.discount || 0);
-      return Math.max(0, s - d);
-    }
-  },
-  methods: {
-    formatCurrency(value) {
-      return Number(value || 0).toFixed(2);
-    }
-  }
+const props = defineProps({ 
+  subtotal: { type: Number, default: 0 },
+  discount: { type: Number, default: 0 }, 
+  total: { type: Number, default: null }
+})
+
+const computedTotal = computed(() => {
+  if (props.total !== null && !isNaN(props.total)) return Number(props.total);
+  const s = Number(props.subtotal || 0);
+  const d = Number(props.discount || 0);
+  return Math.max(0, s - d);
+})
+
+function formatCurrency(value) {
+  return Number(value || 0).toFixed(2)
 }
 </script>
+
 
 <style scoped>
 .p-button {

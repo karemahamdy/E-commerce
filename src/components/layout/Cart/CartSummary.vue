@@ -6,12 +6,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Coupon from './Coupon.vue'
 import CartTotal from './CartTotal.vue'
-
-export default {
-  components: { Coupon, CartTotal },
-  props: ['subtotal', 'discount']
-}
+ const props = defineProps (['subtotal', 'discount'])
 </script>

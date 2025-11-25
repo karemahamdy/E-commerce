@@ -19,14 +19,10 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Button from 'primevue/button'
-import BaseButton from '../../BaseButton.vue';
-
-export default {
-  components: { Button, BaseButton },
-  props: ['cartItems']
-}
+import BaseButton from '../../BaseButton.vue'
+const props = defineProps({ cartItems: Array })
 </script>
 
 <style scoped>
