@@ -1,45 +1,36 @@
 <template>
-  <TopHeader />
-  <MainNavbar />
-  <CategoryNavbar />
-
-  <div class="max-w-6xl mx-auto px-4 py-8 grid sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-8">
-    <div class="lg:col-span-2">
+  <div class="max-w-6xl mx-auto px-4 py-8 grid sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-8 relative">
+    <!-- Loading overlay -->
+    <div v-if="cart.loading" class="absolute inset-0 z-50 bg-white/60 flex items-center justify-center">
+      <Loading overlay text="Loading cart..." />
+    </div>
+    <div v-if="!cart.items.length && !cart.loading" class="lg:col-span-2 bg-white p-6 rounded-lg shadow">
+      <div class="text-center text-gray-600">
+        Your cart is empty. Start adding some products!
+      </div>
+    </div>  
+    <div v-else-if="!cart.loading" class="lg:col-span-2">
       <ShoppingCart :cartItems="cart.items" @increaseQty="increaseQty" @decreaseQty="decreaseQty"
         @removeItem="removeItem" />
     </div>
-    <div class="mt-4">
+    <div class="mt-4" v-if="!cart.loading">
       <CartSummary :subtotal="cart.total" :discount="cart.discount_amount" @applyCoupon="applyCoupon" />
     </div>
   </div>
-
-  <Footer />
 </template>
 
-<script>
+<script setup>
 import { useCartStore } from '../store/cartStore'
 import { onMounted } from 'vue'
-import TopHeader from '../components/TopHeader.vue'
-import MainNavbar from '../components/MainNavbar.vue'
-import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue'
 import CartSummary from '../components/layout/Cart/CartSummary.vue';
 import ShoppingCart from '../components/layout/Cart/ShoppingCart.vue';
-import Footer from '../components/Footer.vue'
+import Loading from '../components/Loading.vue';
 import { useToast } from 'primevue/usetoast';
-export default {
-  components: {
-    TopHeader,
-    MainNavbar,
-    CategoryNavbar,
-    CartSummary,
-    ShoppingCart,
-    Footer
-  },
 
-  setup() {
     const cart = useCartStore()
     const toast = useToast()
     const userId = "test-user-123"
+
     onMounted(() => {
       cart.fetchCart(userId)
     })
@@ -66,9 +57,8 @@ export default {
         toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon not valid or expired', life: 3000 })
       }
     }
-    return { cart, increaseQty, decreaseQty, removeItem, applyCoupon }
-  }
-}
+    // return { cart, increaseQty, decreaseQty, removeItem, applyCoupon }
+  
 </script>
 
 <style scoped>

@@ -1,8 +1,5 @@
 <template>
   <!-- <Button @click="redirectToSalla">Connect with Salla</Button> -->
-  <TopHeader />
-  <MainNavbar />
-  <CategoryNavbar />
   <HeroSection src="../public/assets/images/a9ea64c362124ba0b6ffc37ea30bc5c8.HD-1080p-4.8Mbps-13664080 (1).mp4" />
   <FeaturesSection />
   <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 pt-8">
@@ -12,14 +9,11 @@
   <Brands class="py-6 mb-4" />
   <SaleBanner />
   <OurBlog />
-  <Footer />
 </template>
 
 <script>
 
-import TopHeader from '../components/TopHeader.vue';
-import MainNavbar from '../components/MainNavbar.vue';
-import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue';
+
 import HeroSection from '../components/layout/Home/HeroSection.vue';
 import FeaturesSection from '../components/layout/Home/FeaturesSection.vue';
 import TextBanner from '../components/TextBanner.vue';
@@ -32,9 +26,7 @@ import Footer from '../components/Footer.vue';
 export default {
   name: 'Home',
   components: {
-    TopHeader,
-    MainNavbar,
-    CategoryNavbar,
+   
     ProductGrid,
     HeroSection,
     TextBanner,

@@ -1,8 +1,7 @@
 <template>
-  <TopHeader />
-  <MainNavbar />
-  <CategoryNavbar />
-  <Loading v-if="loading" />
+  <div v-if="loading" class="bg-white/60 flex items-center justify-center mt-50 mb-50">
+      <Loading overlay text="Loading products..." />
+    </div>
   <Error v-else-if="error" :message="error" />
   <Empty v-else-if="!products.length" />
   <div v-else class="flex gap-8 p-6 bg-gray-50 min-h-screen">
@@ -12,7 +11,6 @@
       :prices="prices" :sizes="sizes" :colors="colors" :tags="tags" />
     <ProductGrid :products="products" :totalRecords="totalRecords" v-model:first="first" @page="onPageChange" />
   </div>
-  <Footer />
 </template>
 
 <script>
@@ -22,12 +20,8 @@ import { supabase } from '../lib/supabase.js';
 import Loading from "../components/Loading.vue";
 import Error from "../components/Error.vue";
 import Empty from "../components/Empty.vue";
-import TopHeader from '../components/TopHeader.vue';
-import MainNavbar from '../components/MainNavbar.vue';
-import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue';
-import Footer from '../components/Footer.vue';
 export default {
-  components: { SidebarFilters, ProductGrid, Loading, Error, Empty, TopHeader, MainNavbar, CategoryNavbar, Footer },
+  components: { SidebarFilters, ProductGrid, Loading, Error, Empty },
   data() {
     return {
       searchTerm: '',

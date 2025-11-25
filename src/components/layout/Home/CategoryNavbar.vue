@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white border-b border-gray-200 pt-4">
-    <div class="container mx-auto px-4 pb-4">
+  <div class="">
+    <div class="container mx-auto px-4 ">
       <div class="flex gap-4 overflow-x-auto hide-scrollbar justify-center">
         <category-button v-for="(category, index) in navLinks" :key="index" :label="category.label"
           :has-dropdown="category.hasDropdown" :is-active="currentCategory === index"

@@ -1,7 +1,4 @@
 <template>
-    <TopHeader />
-  <MainNavbar />
-  <CategoryNavbar />
   <div class="bg-white min-h-screen flex flex-col items-center justify-center px-4 py-12">
     <div class="max-w-2xl w-full text-center">
       <h1 class="text-4xl font-bold text-blue-500 mb-4">About Us</h1>
@@ -25,21 +22,7 @@
       </div>
     </div>
   </div>
-  <Footer/>
 </template>
 
-<script>
-import Footer from '../components/Footer.vue';
-import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue';
-import MainNavbar from '../components/MainNavbar.vue';
-import TopHeader from '../components/TopHeader.vue';
-export default {
-  name: 'About',
-  components: {
-    Footer,
-    CategoryNavbar,
-    MainNavbar,
-    TopHeader
-  }
-};
+<script setup>
 </script>

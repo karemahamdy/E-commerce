@@ -5,7 +5,9 @@ export const useCartStore = defineStore('cart', {
   state: () => ({
     count: 0,
     items: [],       
-    coupon: null,   
+    coupon: null,
+    loading: false,
+    error: null,
   }),
   getters: {
     subtotal(state) {
@@ -34,12 +36,19 @@ export const useCartStore = defineStore('cart', {
   actions: {
   
     async fetchCart(userId) {
-      const { data, error } = await supabase
-        .from('cart_items')
-        .select('id, product_id, quantity, product:products(*)')
-        .eq('user_id', userId)
-      if (error) return
-      this.items = data.map(item => ({
+      this.loading = true;
+      this.error = null;
+      try {
+        const { data, error } = await supabase
+          .from('cart_items')
+          .select('id, product_id, quantity, product:products(*)')
+          .eq('user_id', userId);
+        if (error) {
+          this.error = error.message || 'Failed to fetch cart';
+          this.items = [];
+          return;
+        }
+        this.items = data.map(item => ({
         id: item.id,
         product_id: item.product_id,
         quantity: item.quantity,
@@ -48,10 +57,18 @@ export const useCartStore = defineStore('cart', {
         price: item.product.price,
         originalPrice: item.product.price,
       }))
+      } catch (e) {
+        this.error = e.message || 'Failed to fetch cart';
+        this.items = [];
+      } finally {
+        this.loading = false;
+      }
 
     },
     
     async addItem(productId, item) {
+      this.loading = true;
+      this.error = null;
       const { data, error } = await supabase
         .from("cart_items")
         .insert([
@@ -68,13 +85,18 @@ export const useCartStore = defineStore('cart', {
 
       if (error) {
         console.error("Supabase insert error:", error);
+        this.error = error.message || 'Failed to add item';
+        this.loading = false;
         return;
       }
       this.count++;
       this.items.push(data[0]); 
+      this.loading = false;
     },
 
     async updateQuantity(userId, productId, quantity) {
+      this.loading = true;
+      this.error = null;
       const { data, error } = await supabase
         .from('cart_items')
         .update({ quantity })
@@ -85,10 +107,16 @@ export const useCartStore = defineStore('cart', {
       if (!error) {
         const idx = this.items.findIndex(i => i.product_id === productId)
         if (idx !== -1) this.items[idx] = data
+        this.loading = false;
+        return;
       }
+      this.error = error.message || 'Failed to update quantity';
+      this.loading = false;
     },
 
     async removeItem(userId, productId) {
+      this.loading = true;
+      this.error = null;
       const { error } = await supabase
         .from('cart_items')
         .delete()
@@ -96,15 +124,27 @@ export const useCartStore = defineStore('cart', {
         .eq('product_id', productId)
       if (!error) {
         this.items = this.items.filter(i => i.product_id !== productId)
+        this.loading = false;
+        return;
       }
+      this.error = error.message || 'Failed to remove item';
+      this.loading = false;
     },
 
     async clearCart(userId) {
+      this.loading = true;
+      this.error = null;
       const { error } = await supabase
         .from('cart_items')
         .delete()
         .eq('user_id', userId)
       if (!error) this.items = []
+      if (!error) {
+        this.loading = false;
+        return;
+      }
+      this.error = error.message || 'Failed to clear cart';
+      this.loading = false;
     },
     
     // ...existing code...

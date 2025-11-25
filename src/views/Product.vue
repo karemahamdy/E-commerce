@@ -1,10 +1,5 @@
 <template>
-  <TopHeader />
-  <MainNavbar />
-  <CategoryNavbar />
-
   <div class="max-w-6xl mx-auto p-6 grid grid-cols-2 md:grid-cols-2 gap-10" v-if="product">
-
     <ProductImages :images="product.images" :initialImage="selectedImage" />
     <ProductDetails :title="product.name" :reviews="product.reviews_count" :price="product.price"
       :productId="product.id" :colors="product.colors" :sizes="product.sizes" :initialColor="selectedColor"
@@ -17,21 +12,17 @@
     </div>
   </div>
 
-  <div v-else class="text-center py-10">Loading product...</div>
-
-  <Footer />
+  <div v-else class="text-center py-10"><Loading overlay text="Loading product..." />
+</div>
 </template>
 
 <script>
-import Footer from '../components/Footer.vue';
-import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue';
 import ProductComments from '../components/layout/Product/ProductId/ProductComments.vue';
 import ProductDescription from '../components/layout/Product/ProductId/ProductDescription.vue';
 import ProductDetails from '../components/layout/Product/ProductId/ProductDetails.vue';
 import ProductImages from '../components/layout/Product/ProductId/ProductImages.vue';
 import ProductReviews from '../components/layout/Product/ProductId/ProductReviews.vue';
-import MainNavbar from '../components/MainNavbar.vue';
-import TopHeader from '../components/TopHeader.vue';
+import Loading from '../components/Loading.vue';
 import { supabase } from '../lib/supabase.js';
 
 export default {
@@ -70,10 +61,7 @@ export default {
     ProductReviews,
     ProductDetails,
     ProductImages,
-    Footer,
-    CategoryNavbar,
-    MainNavbar,
-    TopHeader
+    Loading
   },
   computed: {
     ratingPercentages() {
