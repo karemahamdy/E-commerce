@@ -56,6 +56,7 @@ export const useCartStore = defineStore('cart', {
         image: item.product.image_url,
         price: item.product.price,
         originalPrice: item.product.price,
+        updating: false,
       }))
       } catch (e) {
         this.error = e.message || 'Failed to fetch cart';
@@ -66,8 +67,8 @@ export const useCartStore = defineStore('cart', {
 
     },
     
-    async addItem(productId, item) {
-      this.loading = true;
+    async addItem(productId, item, options = { suppressLoading: false }) {
+      if (!options.suppressLoading) this.loading = true;
       this.error = null;
       const { data, error } = await supabase
         .from("cart_items")
@@ -90,13 +91,20 @@ export const useCartStore = defineStore('cart', {
         return;
       }
       this.count++;
-      this.items.push(data[0]); 
-      this.loading = false;
+      this.items.push({ ...data[0], updating: false }); 
+      if (!options.suppressLoading) this.loading = false;
     },
 
-    async updateQuantity(userId, productId, quantity) {
-      this.loading = true;
+    async updateQuantity(userId, productId, quantity, options = { suppressLoading: true, optimistic: true }) {
+      if (!options.suppressLoading) this.loading = true;
       this.error = null;
+      let idx = this.items.findIndex(i => i.product_id === productId);
+      let previousQuantity = null;
+      if (idx !== -1) {
+        previousQuantity = this.items[idx].quantity;
+        if (options.optimistic) this.items[idx].quantity = quantity;
+        this.items[idx].updating = true;
+      }
       const { data, error } = await supabase
         .from('cart_items')
         .update({ quantity })
@@ -105,17 +113,54 @@ export const useCartStore = defineStore('cart', {
         .select('id, product_id, quantity, product:products(*)')
         .single()
       if (!error) {
-        const idx = this.items.findIndex(i => i.product_id === productId)
-        if (idx !== -1) this.items[idx] = data
-        this.loading = false;
+        idx = this.items.findIndex(i => i.product_id === productId)
+        if (idx !== -1) {
+          // normalize returned data shape to match our items
+          const mapped = {
+            id: data.id,
+            product_id: data.product_id,
+            quantity: data.quantity,
+            name: data.product?.name,
+            image: data.product?.image_url,
+            price: data.product?.price,
+            originalPrice: data.product?.price
+          }
+          this.items[idx] = mapped
+          this.items[idx].updating = false;
+        }
+        if (!options.suppressLoading) this.loading = false;
         return;
       }
+      if (idx !== -1 && options.optimistic) {
+        this.items[idx].quantity = previousQuantity;
+        this.items[idx].updating = false;
+      }
       this.error = error.message || 'Failed to update quantity';
-      this.loading = false;
+      if (!options.suppressLoading) this.loading = false;
+      throw new Error(this.error);
     },
 
-    async removeItem(userId, productId) {
-      this.loading = true;
+    // set quantity locally without calling backend (optimistic local update)
+    setLocalQuantity(productId, quantity) {
+      const idx = this.items.findIndex(i => i.product_id === productId)
+      if (idx !== -1) {
+        this.items[idx].quantity = quantity
+        this.items[idx].updating = true
+        return true
+      }
+      return false
+    },
+    setItemUpdating(productId, updating) {
+      const idx = this.items.findIndex(i => i.product_id === productId)
+      if (idx !== -1) {
+        this.items[idx].updating = updating
+        return true
+      }
+      return false
+    },
+
+    async removeItem(userId, productId, options = { suppressLoading: true }) {
+      if (!options.suppressLoading) this.loading = true;
       this.error = null;
       const { error } = await supabase
         .from('cart_items')
@@ -124,11 +169,11 @@ export const useCartStore = defineStore('cart', {
         .eq('product_id', productId)
       if (!error) {
         this.items = this.items.filter(i => i.product_id !== productId)
-        this.loading = false;
+        if (!options.suppressLoading) this.loading = false;
         return true;
       }
       this.error = error.message || 'Failed to remove item';
-      this.loading = false;
+      if (!options.suppressLoading) this.loading = false;
       throw new Error(this.error);
     },
 

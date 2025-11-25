@@ -20,8 +20,9 @@
 </template>
 
 <script setup>
+import debounce from 'lodash.debounce';
 import { useCartStore } from '../store/cartStore'
-import { onMounted } from 'vue'
+import { onMounted, onBeforeUnmount } from 'vue'
 import CartSummary from '../components/layout/Cart/CartSummary.vue';
 import ShoppingCart from '../components/layout/Cart/ShoppingCart.vue';
 import Loading from '../components/Loading.vue';
@@ -35,15 +36,53 @@ import { useToast } from 'primevue/usetoast';
       cart.fetchCart(userId)
     })
 
+    const debounceTimers = new Map()
+    const previousQuantities = new Map()
+
+    function scheduleUpdate(productId, newQty) {
+      if (debounceTimers.has(productId)) clearTimeout(debounceTimers.get(productId))
+      const timer = setTimeout(async () => {
+        try {
+          await cart.updateQuantity(userId, productId, newQty, { suppressLoading: true, optimistic: false })
+        } catch (e) {
+          const prev = previousQuantities.get(productId)
+          if (prev !== undefined) {
+            cart.setLocalQuantity(productId, prev)
+            cart.setItemUpdating(productId, false)
+          }
+          toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to update quantity', life: 2000 })
+        } finally {
+          debounceTimers.delete(productId)
+          previousQuantities.delete(productId)
+        }
+      }, 600)
+      debounceTimers.set(productId, timer)
+    }
+
     function increaseQty(item) {
-      cart.updateQuantity(userId, item.product_id, item.quantity + 1)
+      const productId = item.product_id
+      const prev = item.quantity
+      const newQty = prev + 1
+      if (!previousQuantities.has(productId)) previousQuantities.set(productId, prev)
+      cart.setLocalQuantity(productId, newQty)
+      scheduleUpdate(productId, newQty)
     }
 
     function decreaseQty(item) {
       if (item.quantity > 1) {
-        cart.updateQuantity(userId, item.product_id, item.quantity - 1)
+        const productId = item.product_id
+        const prev = item.quantity
+        const newQty = prev - 1
+        if (!previousQuantities.has(productId)) previousQuantities.set(productId, prev)
+        cart.setLocalQuantity(productId, newQty)
+        scheduleUpdate(productId, newQty)
       }
     }
+    onBeforeUnmount(() => {
+      debounceTimers.forEach((t) => clearTimeout(t))
+      debounceTimers.clear()
+      previousQuantities.clear()
+    })
 
     async function removeItem(productId) {
       try {
