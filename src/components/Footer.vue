@@ -9,7 +9,7 @@
             The customer is at the heart of our unique business model, which includes design.
           </p>
           <div class="flex space-x-2">
-            <img src="../../../public/assets/images/payment.png" alt="Visa" class="h-8" /> 
+            <!-- <img src="../../../public/assets/images/payment.png" alt="Visa" class="h-8" />  -->
           </div>
         </div>
 
