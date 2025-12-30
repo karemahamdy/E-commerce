@@ -91,8 +91,23 @@ export const useCartStore = defineStore('cart', {
         return;
       }
       this.count++;
-      this.items.push({ ...data[0], updating: false }); 
-      if (!options.suppressLoading) this.loading = false;
+      // this.items.push({ ...data[0], updating: false }); 
+      // if (!options.suppressLoading) this.loading = false;
+      if (data && data.length > 0) {
+  this.items.push({ ...data[0], updating: false });
+} else {
+  // Fallback: ابني العنصر يدويًا
+  this.items.push({
+    id: null,
+    product_id: productId,
+    name: item.name,
+    price: item.price,
+    color: item.color,
+    size: item.size,
+    quantity: item.quantity,
+    updating: false
+  });
+}
     },
 
     async updateQuantity(userId, productId, quantity, options = { suppressLoading: true, optimistic: true }) {

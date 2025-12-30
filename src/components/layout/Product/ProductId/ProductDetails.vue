@@ -77,16 +77,16 @@ const router = useRouter();
 const selectedColor = ref(props.initialColor ?? props.colors?.[0] ?? null);
 const selectedSize = ref(props.initialSize ?? props.sizes?.[0] ?? null);
 
-function handleAddToCart() {
-  cartStore.addItem(props.productId, {
+async function handleAddToCart() {
+  await cartStore.addItem(props.productId, {
     name: props.title,
     price: props.price,
     color: selectedColor.value,
     size: selectedSize.value,
     quantity: quantity.value
-  });
-  localStorage.setItem('cartCount', this.count);
-  router.push("/cart");
+  }, { suppressLoading: true });
+  localStorage.setItem('cartCount', String(cartStore.count || 0));
+  router.push('/cart');
 }
   function increaseQty() {
     quantity.value++;
