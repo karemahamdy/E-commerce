@@ -1,0 +1,42 @@
+name: Node.js CI
+on:
+  schedule:
+    - cron: "*/30 * * * *"   
+  workflow_dispatch:   
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Cleanup old dependencies
+        run: |
+          rm -rf node_modules
+          rm package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+   - name: Ping Supabase
+  run: |
+    curl -X GET "https://kxyxluejrdjaputpecew.supabase.co/rest/v1/products?select=*&offset=0&limit=6" \
+    -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+    -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
