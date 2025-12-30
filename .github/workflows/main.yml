@@ -1,9 +1,8 @@
 name: Node.js CI
 on:
   schedule:
-    - cron: "*/30 * * * *"   
-  workflow_dispatch:   
-on:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
   push:
     branches:
       - main
@@ -35,8 +34,8 @@ jobs:
       - name: Build
         run: npm run build
 
-   - name: Ping Supabase
-  run: |
-    curl -X GET "https://kxyxluejrdjaputpecew.supabase.co/rest/v1/products?select=*&offset=0&limit=6" \
-    -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-    -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
+      - name: Ping Supabase
+        run: |
+          curl -sS -X GET "https://kxyxluejrdjaputpecew.supabase.co/rest/v1/products?select=*&offset=0&limit=6" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
