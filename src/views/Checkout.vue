@@ -10,13 +10,13 @@
     <div class="bg-gray-50 p-6 rounded-lg shadow space-y-4" style="height: fit-content;">
       <OrderSummary :cartItems="cart.items" />
       <PaymentWay />
-      <Button label="Place Order" class="w-full mt-4" style="background-color: black; border-color: black;" />
+      <!-- <Button label="Place Order" class="w-full mt-4" style="background-color: black; border-color: black;" /> -->
     </div>
   </div>
 </template>
 
 <script setup>
-import Button from 'primevue/button'
+// import Button from 'primevue/button'
 import BillingDetails from '../components/layout/Checkout/BillingDetails.vue'
 import PaymentWay from '../components/layout/Checkout/PaymentWay.vue'
 import OrderSummary from '../components/layout/Checkout/OrderSummary.vue'
