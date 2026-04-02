@@ -1,173 +1,107 @@
 <template>
-  <TopHeader />
-  <MainNavbar />
-  <CategoryNavbar />
-
-  <div class="max-w-6xl mx-auto p-4 sm:p-6">
-    <div v-if="product" class="space-y-8">
-      <!-- Main area: images + details -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        <div class="w-full">
-          <!-- make image container responsive -->
-          <div class="bg-white rounded-lg shadow p-4">
-            <ProductImages
-              class="w-full h-auto"
-              :images="product.images"
-              :initialImage="selectedImage"
-            />
-          </div>
-        </div>
-
-        <div class="w-full">
-          <div class="bg-white rounded-lg shadow p-6">
-            <ProductDetails
-              :title="product.name"
-              :reviews="product.reviews_count"
-              :price="product.price"
-              :productId="product.id"
-              :colors="product.colors"
-              :sizes="product.sizes"
-              :initialColor="selectedColor"
-              :initialSize="selectedSize"
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- Description -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <ProductDescription
-          :description="product.description"
-          :details="product.details"
-          :materials="product.materials"
-        />
-      </div>
-
-      <!-- Reviews + Comments (stacked on small screens) -->
-      <div class="bg-white rounded-lg shadow p-4">
-        <div class="space-y-6">
-          <ProductReviews
-            :reviews_count="product.reviews_count"
-            :reviewsCount="product.reviews_count"
-            :ratingCounts="ratingCounts"
-            :ratingPercentages="ratingPercentages"
-          />
-          <ProductComments :comments="product.comments" />
-        </div>
-      </div>
+  <div class="max-w-6xl mx-auto p-6 grid grid-cols-2 md:grid-cols-2 gap-10" v-if="product">
+    <ProductImages :images="product.images" :initialImage="selectedImage" />
+    <ProductDetails :title="product.name" :reviews="product.reviews_count" :price="product.price"
+      :productId="product.id" :colors="product.colors" :sizes="product.sizes" :initialColor="selectedColor"
+      :initialSize="selectedSize" />
+    <ProductDescription :description="product.description" :details="product.details" :materials="product.materials" />
+    <div class="col-span-2 bg-white px-8 py-4 rounded-lg shadow">
+      <ProductReviews :reviews_count="product.reviews_count" :reviewsCount="product.reviews_count"
+        :ratingCounts="ratingCounts" :ratingPercentages="ratingPercentages" />
+      <ProductComments :comments="product.comments" />
     </div>
 
-    <div v-else class="text-center py-10 text-gray-600">Loading product...</div>
+    <!-- <div v-else class="text-center py-10 text-gray-600">Loading product...</div> -->
   </div>
-
-  <Footer />
+<div v-else class="bg-white/60 flex items-center justify-center mt-50 mb-50">
+      <Loading overlay text="Loading product..." />
+    </div>
 </template>
 
-<script>
-import Footer from '../components/Footer.vue';
-import CategoryNavbar from '../components/layout/Home/CategoryNavbar.vue';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
 import ProductComments from '../components/layout/Product/ProductId/ProductComments.vue';
 import ProductDescription from '../components/layout/Product/ProductId/ProductDescription.vue';
 import ProductDetails from '../components/layout/Product/ProductId/ProductDetails.vue';
 import ProductImages from '../components/layout/Product/ProductId/ProductImages.vue';
 import ProductReviews from '../components/layout/Product/ProductId/ProductReviews.vue';
-import MainNavbar from '../components/MainNavbar.vue';
-import TopHeader from '../components/TopHeader.vue';
+import Loading from '../components/Loading.vue';
 import { supabase } from '../lib/supabase.js';
 
-export default {
-  name: 'Product',
-  props: ['id'],
-  data() {
-    return {
-      product: null,
-      selectedImage: null,
-      selectedColor: null,
-      selectedSize: null,
-      loading: false,
-      error: null,
-      staticColors: ['#ffffff', '#e5e5e5', '#000000'],
-      sizes: ["40.5", "41", "42", "43", "43.5", "44", "44.5", "45", "46"],
-      staticImages: [
-        "../../public/assets/images/bag1.avif",
-        "../../public/assets/images/bag2.avif",
-        "../../public/assets/images/bag3.avif",
-        "../../public/assets/images/bag4.avif",
-        "../../public/assets/images/P00979395_d4.avif"
-      ],
-      ratingCounts: {
-        5: 34,
-        4: 6,
-        3: 2,
-        2: 0,
-        1: 0
-      }
-    };
-  },
-  components: {
-    ProductComments,
-    ProductDescription,
-    ProductReviews,
-    ProductDetails,
-    ProductImages,
-    Footer,
-    CategoryNavbar,
-    MainNavbar,
-    TopHeader
-  },
-  computed: {
-    ratingPercentages() {
-      const total = Object.values(this.ratingCounts).reduce((a, b) => a + b, 0);
-      const result = {};
-      for (let i = 1; i <= 5; i++) {
-        result[i] = total ? ((this.ratingCounts[i] || 0) / total) * 100 : 0;
-      }
-      return result;
-    }
-  },
-  methods: {
-    async fetchProduct() {
-      this.loading = true;
-      try {
-        const { data, error } = await supabase
-          .from('products')
-          .select('*')
-          .eq('id', this.id)
-          .single();
+const props = defineProps({ id: { type: [String, Number], required: true } });
 
-        if (error) throw error;
+const product = ref(null);
+const selectedImage = ref(null);
+const selectedColor = ref(null);
+const selectedSize = ref(null);
+const loading = ref(false);
+const error = ref(null);
+const staticColors = ['#ffffff', '#e5e5e5', '#000000'];
+const sizes = ["40.5", "41", "42", "43", "43.5", "44", "44.5", "45", "46"];
+const staticImages = [
+  "../../public/assets/images/bag1.avif",
+  "../../public/assets/images/bag2.avif",
+  "../../public/assets/images/bag3.avif",
+  "../../public/assets/images/bag4.avif",
+  "../../public/assets/images/P00979395_d4.avif"
+];
+const ratingCounts = ref({
+  5: 34,
+  4: 6,
+  3: 2,
+  2: 0,
+  1: 0
+});
 
-        this.product = {
-          id: data.id,
-          name: data.name,
-          price: data.price || 0,
-          reviews_count: data.reviews_count || 0,
-          sizes: data.sizes,
-          details: data.details || '',
-          comments: data.comments,
-          colors: this.staticColors,
-          images: data.image_urls || this.staticImages,
-          materials: data.materials,
-          description: data.description || '',
-        };
-
-        this.selectedImage = this.product.images[0];
-        this.selectedColor = this.product.colors[0];
-        this.selectedSize = this.product.sizes ? this.product.sizes[0] : null;
-
-      } catch (err) {
-        this.error = err.message || 'Failed to load product';
-        
-        console.error(err);
-      } finally {
-        this.loading = false;
-      }
-    }
-  },
-  mounted() {
-    this.fetchProduct();
+const ratingPercentages = computed(() => {
+  const total = Object.values(ratingCounts.value).reduce((a, b) => a + b, 0);
+  const result = {};
+  for (let i = 1; i <= 5; i++) {
+    result[i] = total ? ((ratingCounts.value[i] || 0) / total) * 100 : 0;
   }
-};
+  return result;
+});
+
+async function fetchProduct() {
+  loading.value = true;
+  try {
+    const { data, error: supaError } = await supabase
+      .from('products')
+      .select('*')
+      .eq('id', props.id)
+      .single();
+
+    if (supaError) throw supaError;
+
+    product.value = {
+      id: data.id,
+      name: data.name,
+      price: data.price || 0,
+      reviews_count: data.reviews_count || 0,
+      sizes: data.sizes,
+      details: data.details || '',
+      comments: data.comments,
+      colors: staticColors,
+      images: data.image_urls || staticImages,
+      materials: data.materials,
+      description: data.description || '',
+    };
+
+    selectedImage.value = product.value.images ? product.value.images[0] : null;
+    selectedColor.value = product.value.colors ? product.value.colors[0] : null;
+    selectedSize.value = product.value.sizes ? product.value.sizes[0] : null;
+  } catch (err) {
+    error.value = err.message || 'Failed to load product';
+    console.error(err);
+  } finally {
+    loading.value = false;
+  }
+}
+
+onMounted(() => {
+  fetchProduct();
+});
+
 </script>
 
 <style scoped>

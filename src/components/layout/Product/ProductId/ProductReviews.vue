@@ -21,13 +21,11 @@
   
 </template>
 
-<script>
-export default {
-  name: "ProductReviews",
-  props: {
+<script setup>
+  const props = defineProps({
     ratingCounts: Object,
     reviews_count: Number,
     ratingPercentages: Object
-  }
-};
+  })
+
 </script>

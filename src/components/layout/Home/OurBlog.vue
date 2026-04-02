@@ -2,7 +2,7 @@
   <section class="py-16 px-4 md:px-16 bg-white">
     <h2 class="text-2xl font-semibold text-center mb-12">Our Blog</h2>
 
-    <div class="grid grid-cols-3 md:grid-cols-3 gap-10">
+    <div class="grid  sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-3 gap-10">
       <div v-for="(post, index) in blogPosts" :key="index" class="flex flex-col">
         <img :src="post.image" :alt="post.title" class="mb-4 w-full h-64 object-cover rounded-md" />
         <h3 class="text-lg font-medium mb-1">{{ post.title }}</h3>

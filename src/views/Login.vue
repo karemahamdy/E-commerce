@@ -26,7 +26,7 @@
       <div>
         <div class="flex justify-between mb-1">
           <label for="password" class="text-sm">Password</label>
-          <a href="#" class="text-xs text-amber-900">Forgot your password?</a>
+          <!-- <a href="#" class="text-xs text-amber-900">Forgot your password?</a> -->
         </div>
         <Password v-model="password" id="password" :feedback="false" toggleMask class="w-full" />
       </div>
@@ -41,20 +41,10 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
-
-export default defineComponent({
-  name: 'Login',
-  components: { Button, InputText, Password },
-  data() {
-    return {
-      email: '',
-      password: '',
-    };
-  },
-});
+      let email = '';
+      let password =  '';
 </script>

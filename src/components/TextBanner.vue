@@ -5,10 +5,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "TextBanner",
-  props: {
+<script setup>
+  const props = defineProps({
     title: {
       type: String,
       required: true
@@ -17,8 +15,7 @@ export default {
       type: String,
       required: true
     }
-  }
-};
+  })
 </script>
 
 <style scoped></style>

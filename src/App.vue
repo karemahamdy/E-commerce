@@ -1,16 +1,18 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen">
+    <TopHeader />
+  <MainNavbar/>
     <Toast />
     <router-view />
+      <Footer />
   </div>
 </template>
 
-<script>
+<script setup> 
 import Toast from 'primevue/toast';
 import './style.css'
 import './tailwind.css'
-export default {
-  name: 'App',
-  components: { Toast }
-}
+import TopHeader from './components/TopHeader.vue';
+import MainNavbar from './components/MainNavbar.vue';
+import Footer from './components/Footer.vue';
 </script>

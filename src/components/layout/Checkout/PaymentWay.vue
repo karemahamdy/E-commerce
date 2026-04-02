@@ -11,21 +11,12 @@
       </div>
 </template>
 
-<script>
+<script setup>
+import { reactive } from 'vue'
 import Checkbox from 'primevue/checkbox'
-import Button from 'primevue/button'
-export default {
-  components: {  
-    Checkbox,
-    Button,
-  },
-  data() {
-    return {
-      form: {
-        createAccount: false,
-        payment: null
-      }
-    }
-  }
-}
+
+const form = reactive({
+  createAccount: false,
+  payment: null
+})
 </script>

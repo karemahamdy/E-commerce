@@ -21,7 +21,8 @@
             <BaseButton label="Know More" bgColor="bg-[sienna]" textColor="text-white" borderColor="border-[sienna]"
               rounded="rounded" padding="" textSize="text-base" />
           </router-link>
-          <router-link to="/cart">
+                   <router-link :to="`/product/${product.id}`">
+
             <BaseButton @click="handleAddToCart" label="add to cart" bgColor="bg-[sienna]" textColor="text-white"
               borderColor="border-[sienna]" rounded="rounded" padding="" textSize="text-base" />
           </router-link>

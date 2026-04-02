@@ -6,16 +6,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import InputText from 'primevue/inputtext'
 import BaseButton from '../../BaseButton.vue';
-
-export default {
-  components: { InputText, BaseButton },
-  data() {
-    return { coupon: '' }
-  }
-}
+import { ref } from 'vue';
+const coupon = ref(''); 
 </script>
 
 <style scoped>
