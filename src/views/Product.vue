@@ -3,21 +3,62 @@
   <MainNavbar />
   <CategoryNavbar />
 
-  <div class="max-w-6xl mx-auto p-6 grid grid-cols-2 md:grid-cols-2 gap-10" v-if="product">
+  <div class="max-w-6xl mx-auto p-4 sm:p-6">
+    <div v-if="product" class="space-y-8">
+      <!-- Main area: images + details -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div class="w-full">
+          <!-- make image container responsive -->
+          <div class="bg-white rounded-lg shadow p-4">
+            <ProductImages
+              class="w-full h-auto"
+              :images="product.images"
+              :initialImage="selectedImage"
+            />
+          </div>
+        </div>
 
-    <ProductImages :images="product.images" :initialImage="selectedImage" />
-    <ProductDetails :title="product.name" :reviews="product.reviews_count" :price="product.price"
-      :productId="product.id" :colors="product.colors" :sizes="product.sizes" :initialColor="selectedColor"
-      :initialSize="selectedSize" />
-    <ProductDescription :description="product.description" :details="product.details" :materials="product.materials" />
-    <div class="col-span-2 bg-white px-8 py-4 rounded-lg shadow">
-      <ProductReviews :reviews_count="product.reviews_count" :reviewsCount="product.reviews_count"
-        :ratingCounts="ratingCounts" :ratingPercentages="ratingPercentages" />
-      <ProductComments :comments="product.comments" />
+        <div class="w-full">
+          <div class="bg-white rounded-lg shadow p-6">
+            <ProductDetails
+              :title="product.name"
+              :reviews="product.reviews_count"
+              :price="product.price"
+              :productId="product.id"
+              :colors="product.colors"
+              :sizes="product.sizes"
+              :initialColor="selectedColor"
+              :initialSize="selectedSize"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <ProductDescription
+          :description="product.description"
+          :details="product.details"
+          :materials="product.materials"
+        />
+      </div>
+
+      <!-- Reviews + Comments (stacked on small screens) -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <div class="space-y-6">
+          <ProductReviews
+            :reviews_count="product.reviews_count"
+            :reviewsCount="product.reviews_count"
+            :ratingCounts="ratingCounts"
+            :ratingPercentages="ratingPercentages"
+          />
+          <ProductComments :comments="product.comments" />
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div v-else class="text-center py-10">Loading product...</div>
+    <div v-else class="text-center py-10 text-gray-600">Loading product...</div>
+  </div>
 
   <Footer />
 </template>
@@ -46,8 +87,7 @@ export default {
       loading: false,
       error: null,
       staticColors: ['#ffffff', '#e5e5e5', '#000000'],
-        // colors: ['#ffffff', '#e5e5e5', '#000000'],
-        sizes: ["40.5", "41", "42", "43", "43.5", "44", "44.5", "45", "46"],
+      sizes: ["40.5", "41", "42", "43", "43.5", "44", "44.5", "45", "46"],
       staticImages: [
         "../../public/assets/images/bag1.avif",
         "../../public/assets/images/bag2.avif",
@@ -109,15 +149,15 @@ export default {
           images: data.image_urls || this.staticImages,
           materials: data.materials,
           description: data.description || '',
-          
         };
 
         this.selectedImage = this.product.images[0];
         this.selectedColor = this.product.colors[0];
-        this.selectedSize = this.product.sizes[0];
+        this.selectedSize = this.product.sizes ? this.product.sizes[0] : null;
 
       } catch (err) {
         this.error = err.message || 'Failed to load product';
+        
         console.error(err);
       } finally {
         this.loading = false;
@@ -129,3 +169,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* minor tweaks for responsive spacing if needed */
+@media (min-width: 1024px) {
+  .product-main { gap: 2rem; }
+}
+</style>
